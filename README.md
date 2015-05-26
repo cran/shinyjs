@@ -1,17 +1,24 @@
 <!-- To create this README, I run devtools::build_vignettes(), then
 rmarkdown::render("vignettes/overview.Rmd", output_format = "md_document"),
-copy the contents of vignettes/overview.md here and add the TravisCI status -->
+copy the contents of vignettes/overview.md here,
+fix the image path (remove the ".."),
+and add the TravisCI status -->
 
 # shinyjs - Perform common JavaScript operations in Shiny apps using plain R code
 
 [![Build Status](https://travis-ci.org/daattali/shinyjs.svg?branch=master)](https://travis-ci.org/daattali/shinyjs)
 
 `shinyjs` lets you perform common useful JavaScript operations in Shiny
-applications without having to know any JavaScript. You can [check out a
-demo Shiny app](http://daattali.com:3838/shinyjs-demo/) that lets you
-play around with some of the functionality that `shinyjs` makes
-available, or [have a look at a very basic Shiny
-app](http://daattali.com:3838/shinyjs-basic/) that uses `shinyjs` to
+applications without having to know any JavaScript. Examples include
+hiding an element, disabling an input, resetting an input back to its
+original value, and many more useful functions. `shinyjs` can also be
+used to easily run your own custom JavaScript functions from R.
+
+You can [check out a demo Shiny
+app](http://daattali.com/shiny/shinyjs-demo/) that lets you play around
+with some of the functionality that `shinyjs` makes available, or [have
+a look at a very basic Shiny
+app](http://daattali.com/shiny/shinyjs-basic/) that uses `shinyjs` to
 enhance the user experience with very minimal and simple R code.
 
 Installation
@@ -27,6 +34,51 @@ To install the latest developmental version from GitHub:
 
     install.packages("devtools")
     devtools::install_github("daattali/shinyjs")
+
+Overview of main functions
+--------------------------
+
+-   `show`/`hide`/`toggle` - display or hide an element. There are
+    arguments that control the animation as well, though animation is
+    off by default.
+
+-   `hidden` - initialize a Shiny tag as invisible (can be shown later
+    with a call to `show`).
+
+-   `reset` - reset a Shiny input widget back to its original value.
+
+-   `enable`/`disable`/`toggleState` - enable or disable an input
+    element, such as a button or a text input.
+
+-   `info` - show a message to the user (using JavaScript's `alert`
+    under the hood).
+
+-   `text` - change the text/HTML of an element (using JavaScript's
+    `innerHTML` under the hood).
+
+-   `onclick` - run R code when an element is clicked. Was originally
+    developed with the sole purpose of running a `shinyjs` function when
+    an element is clicked, though any R code can be used.
+
+-   `addClass`/`removeClass`/`toggleClass` - add or remove a CSS class
+    from an element
+
+-   `inlineCSS` - easily add inline CSS to a Shiny app.
+
+-   `logjs` - print a message to the JavaScript console (mainly used for
+    debugging purposes).
+
+-   `runjs` - run arbitrary JavaScript code (not recommended to use this
+    in a published Shiny app).
+
+-   `extendShinyjs` - allows you to write your own JavaScript functions
+    and use `shinyjs` to call them as if they were regular R code. More
+    information is available in the section "Calling your own JavaScript
+    functions from R".
+
+[Check out the demo Shiny app](http://daattali.com/shiny/shinyjs-demo/)
+to see some of these in action, or install `shinyjs` and run
+`shinyjs::runExample()` to see more demo apps.
 
 Motivation
 ----------
@@ -50,46 +102,11 @@ achieve the results that I wanted, but for any Shiny developer who is
 not proficient in JS, hopefully this package will make it easy to extend
 the power of their Shiny apps.
 
-Overview of main functions
---------------------------
-
--   `show`/`hide`/`toggle` - display or hide an element. There are
-    arguments that control the animation as well, though animation is
-    off by default.
-
--   `hidden` - initialize a Shiny tag as invisible (can be shown later
-    with a call to `show`)
-
--   `enable`/`disable`/`toggleState` - enable or disable an input
-    element, such as a button or a text input.
-
--   `info` - show a message to the user (using JavaScript's `alert`
-    under the hood)
-
--   `text` - change the text/HTML of an element (using JavaScript's
-    `innerHTML` under the hood)
-
--   `onclick` - run R code when an element is clicked. Was originally
-    developed with the sole purpose of running a `shinyjs` function when
-    an element is clicked, though any R code can be used.
-
--   `addClass`/`removeClass`/`toggleClass` - add or remove a CSS class
-    from an element
-
--   `inlineCSS` - easily add inline CSS to a Shiny app
-
--   `logjs` - print a message to the JavaScript console (mainly used for
-    debugging purposes)
-
-[Check out the demo Shiny app](http://daattali.com:3838/shinyjs-demo/)
-to see some of these in action, or install `shinyjs` and run
-`shinyjs::runExample()` to see more demo apps.
-
-Basic use case - working example
---------------------------------
+Basic use case - complete working example
+-----------------------------------------
 
 *You can view the final Shiny app developed in this simple example
-[here](http://daattali.com:3838/shinyjs-basic/).*
+[here](http://daattali.com/shiny/shinyjs-basic/).*
 
 Suppose we want to have a simple Shiny app that collects a user's basic
 information (name, age, company) and submits it, along with the time of
@@ -133,7 +150,7 @@ with two small changes
     initialize the server as `server(input, output, session)` instead of
     `server(input, output)`.
 
-Here are 6 features we'll add to the app, each followed with the code to
+Here are 7 features we'll add to the app, each followed with the code to
 implement it using `shinyjs`:
 
 **1. The "Name" field is mandatory and thus the "Submit" button should
@@ -148,6 +165,17 @@ In the server portion, add the following code
         shinyjs::enable("submit")
       }
     })
+
+Or instead you can use the `toggleState` function and pass it a
+`condition`:
+
+    observe({
+      shinyjs::toggleState("submit", !is.null(input$name) && input$name != "")
+    })
+
+You can use the optional `condition` in some other functions as well,
+which can be very useful to make your code shorter and more
+understandable.
 
 **2. The "Age" and "Company" fields are optional and we want to have the
 ability to hide that section of the form**
@@ -223,17 +251,35 @@ checkbox is checked by adding this code to the server
       }
     })
 
+Or, again, we can use the `toggleClass` function with the `condition`
+argument:
+
+    observe({
+      shinyjs::toggleClass("myapp", "big", input$big)
+    })
+
 **6. Give the user a "Thank you" message upon submission**
 
 Simply add the following to the server
 
-    observe({
-      if (input$submit > 0) {
-        shinyjs::info("Thank you!")
-      }
+    observeEvent(input$submit, {
+      shinyjs::info("Thank you!")
     })
 
-**The final code looks like this**
+**7. Allow the user to reset the form**
+
+First let's add a button to the UI
+
+    actionButton("reset", "Reset form")
+
+And when the button is clicked, reset the form
+
+    observeEvent(input$reset, {
+      shinyjs::reset("myapp")
+    })
+
+**The final code looks like this** (I'm using the more compact `toggle*`
+version where possible)
 
     library(shiny)
     shinyApp(
@@ -255,17 +301,14 @@ Simply add the following to the server
               span(id = "time", date()),
               a(id = "update", "Update", href = "#")
             ),
-            actionButton("submit", "Submit")
+            actionButton("submit", "Submit"),
+            actionButton("reset", "Reset form")
         )
       ),
       
       server = function(input, output, session) {
         observe({
-          if (is.null(input$name) || input$name == "") {
-            shinyjs::disable("submit")
-          } else {
-            shinyjs::enable("submit")
-          }
+          shinyjs::toggleState("submit", !is.null(input$name) && input$name != "")
         })
         
         shinyjs::onclick("toggleAdvanced",
@@ -274,84 +317,173 @@ Simply add the following to the server
         shinyjs::onclick("update", shinyjs::text("time", date()))
         
         observe({
-          if (input$big) {
-            shinyjs::addClass("myapp", "big")
-          } else {
-            shinyjs::removeClass("myapp", "big")
-          }
+          shinyjs::toggleClass("myapp", "big", input$big)
         })
         
-        observe({
-          if (input$submit > 0) {
-            shinyjs::info("Thank you!")
-          }
+        observeEvent(input$submit, {
+          shinyjs::info("Thank you!")
+        })
+        
+        observeEvent(input$reset, {
+          shinyjs::reset("myapp")
         })    
       }
     )
 
 You can view the final app
-[here](http://daattali.com:3838/shinyjs-basic/).
+[here](http://daattali.com/shiny/shinyjs-basic/).
+
+Calling your own JavaScript functions from R
+--------------------------------------------
+
+You can also use `shinyjs` to simplify calling your own JavaScript
+functions from R, using `extendShinyjs`.
+
+For example, suppose you wanted to define a JavaScript function that
+will change the colour of some text. You might know that Shiny allows
+you to send a message to the client using the
+`session$sendCustomMessage` interface. That works perfectly well, but
+using `extendShinyjs` has two main benefits: it makes you write a lot
+less code by taking care of all the message passing, and it can help you
+with normalizing the parameter passing from R to JavaScript.
+
+Using `extendShinyjs` in order to use your own functions as shinyjs
+functions is easy. Any JavaScript function you define that begins with
+`shinyjs.` will be available to run from R through the `js$` variable.
+For example, if you write a JavaScript function called `shinyjs.colour`,
+then you can call it in R with `js$colour()`.
+
+### Basic example of `extendShinyjs`
+
+As an extremely simple example, here are the steps required to add your
+own JavaScript function that shows a message to the user (similar to
+`shinyjs::info`):
+
+#### 1. Create a JavaScript file
+
+Create a JavaScript file `www/js/shinyjs-ext.js` and define a function
+named `shinyjs.message` that will simply show an alert box with the
+given message.
+
+    shinyjs.message = function(params) { alert(params); }
+
+#### 2. Create a shiny app
+
+In order to use the new function we created, we need to call
+`extendShinyjs()` in the UI with the script as an argument. We also
+still need to call `useShinyjs()` as usual.
+
+Any function defined inside the script file we provided in the UI will
+now be accessible in the server, so we can call `js$message(text)`.
+
+    library(shiny)
+    library(shinyjs)
+    runApp(shinyApp(
+      ui = fluidPage(
+        useShinyjs(),
+        extendShinyjs("www/js/shinyjs-ext.js"),
+        textInput("text", "Message:", "Hello!"),
+        actionButton("btn", "Click me")
+      ),
+      server = function(input,output,session) {
+        observeEvent(input$btn, {
+          js$message(input$text)
+        })
+      }
+    ))
+
+This example shows the most basic use of extending `shinyjs`: you can
+define functions in a JavaScript file, call `extendShinyjs()`, and then
+use the `js$` object to call those functions from R.
+
+### More complex example of `extendShinyjs` with parameter passing
+
+Let's go back to the example from the beginning of the section: adding a
+function that will change the colour of an HTML element. This example
+will demonstrate the useful feature that `shinyjs` provides in
+normalizing parameters.
+
+In JavaScript, given the id of an element and a colour, we can use these
+two simple lines of code to apply the colour to the HTML element:
+
+    var el = $("#" + id);
+    el.css('color', col);
+
+To turn this into a `shinyjs` function, we need to put it inside a
+function that has one parameter and whose name starts with `shinyjs.`.
+When calling a `shinyjs` function in R, the corresponding JavaScript
+function will be given a single array-like parameter. If the function in
+R was called with unnamed arguments (for example `function(1, "a")`)
+then the parameter will be an `Array` object; if the arguments are named
+(for example `function(x = 1, y = "a")`) then the parameter will be an
+`Object` with key-value pairs (each key is an argument name and the
+value is the argument's value).
+
+`shinyjs` provides a `shinyjs.getParams()` function to normalize
+JavaScript parameters, which serves two purposes. First of all, it
+ensures that all arguments are named (even if the R function was called
+without names). Secondly, it also allows you to define default values
+for arguments. Here is an implementation of our JavaScript function to
+change the colour of an element, with the default colour being red if
+not specified.
+
+    shinyjs.colour = function(params) {
+      var defaultParams = {
+        id : null,
+        col : "red"
+      };
+      params = shinyjs.getParams(params, defaultParams);
+
+      var el = $("#" + params.id);
+      el.css('color', params.col);
+    }
+
+All the default `shinyjs` functions use `shinyjs.getParams()`, and it is
+highly recommended to always use it in a similar manner to what is shown
+here. Otherwise, you'll have to manually deal with the given parameter
+being either an Array or an Object, and you will have to manually
+account for default parameter values.
+
+Any shiny app that includes a file with the above function will be able
+to call `js$colour()` from the app's server. Here are a few ways to call
+the function: `js$colour("id")`, `js$colour("id", "blue")`,
+`js$colour(col = "yellow", id = "id")`. Note that the order of the
+arguments in `defaultParams` in the JavaScript function matches the
+order of the arguments when calling the function in R with unnamed
+arguments. For example, calling `js$colour("red", "id")` will not work
+because the arguments are not named and the JavaScript function expects
+id to come before colour. Also note that if we don't provide a colour,
+red will be used.
+
+Here is a simple shiny app that uses the above function, assuming it's
+also placed in `www/js/shinyjs-ext.js`:
+
+    library(shiny)
+    library(shinyjs)
+    runApp(shinyApp(
+      ui = fluidPage(
+        useShinyjs(),
+        extendShinyjs("www/js/shinyjs-ext.js"),
+        p(id = "text", "Paragraph 1"),
+        selectInput("col", "Colour:", c("blue", "yellow", "red", "black")),
+        actionButton("btn", "Change colour")
+      ),
+      server = function(input,output,session) {
+        observeEvent(input$btn, {
+          js$colour("text", input$col)
+        })
+      }
+    ))
+
+You can read more about this feature with `?shinyjs::extendShinyjs`.
 
 Altenatives using native Shiny
 ------------------------------
 
-### shiny::conditionalPanel vs shinyjs::hide/show/toggle/hidden
+The initial release of this package was announced [on my
+blog](http://deanattali.com/2015/04/23/shinyjs-r-package/) and discusses
+this topic.
 
-It is possible to achieve a similar behaviour to `hide` and `show` by
-using `shiny::conditionalPanel`, though I've experienced that using
-`conditionalPanel` often gets my UI to a messier state. I still use
-`conditionalPanel` sometimes for basic use cases, but when there is some
-logic involved in hiding/showing, I find it much easier to move that
-logic to the server and use `hide`/`show`. I also think it's generally a
-better idea to keep most of the logic in the server, and using
-`conditionalPanel` violates that rule.  
-Implementing the `shinyjs::toggle` or `shinyjs::hidden` behaviour with
-pure Shiny is also possible but it also results in messier and less
-intuitive code.
+## Contributions
 
-### shiny::render\* and shiny::update\* vs shinyjs::text
-
-The `shinyjs::text` function can be used to change the text inside an
-element by either overwriting it or appending to it. I mostly intended
-for this function to be used to change the text, though it can also be
-used to add HTML elements. There are many Shiny functions that allow you
-to change the text of an element. For example, `renderText` is used on a
-`textOutput` tag and `updateTextInput` is used on a `textInput` tag.
-These functions are useful, but sometimes I like to be able to just
-cange the text of a tag without having to know/specify exactly what it
-was declared in the UI. These functions also don't work on tags that are
-not defined as reactive, so if I just have a `p(id = "time", date())` it
-would be impossible to change it. I also don't think it's possible to
-append rather than overwrite with Shiny, and you can't use HTML unless
-the element is declared as `uiOutput` or something similar.
-
-There is something to be said about the fact that the pure Shiny
-functions are safer and more strict, but I personally like having the
-extra flexibility sometimes, even though the `text` function feels like
-it doesn't really follow Shiny's patterns. I still use the Shiny
-functions often, but I find `text` useful as well.
-
-### shiny::observeEvent vs shinyjs::onclick
-
-The `onclick` function was initially written because I wanted a way to
-click on a button that will cause a section to show/hide, like so:
-
-    shinyjs::onclick("toggleLink", shinyjs::toggle("section"))
-
-RStudio very recently published an article describing several design
-patterns for using buttons, and from that article I learned that I can
-do what I wanted with `observeEvent`:
-
-    observeEvent("input$toggleLink", shinyjs::toggle("section"))
-
-When I first discovered this, I thought of removing the `onclick`
-function because it's not useful anymore, but then I realized there are
-differences that still make it useful. `observeEvent` responds to
-"event-like" reactive values, while `onclick` responds to a mouse click
-on an element. This means that `observeEvent` can be used for any input
-element (not only clickable things), but `onclick` can be used for
-responding to a click on any element, even if it is not an input tag.
-Another small feature I wanted to support is the ability to overwrite vs
-add the click handler (= R code to run on a click). This would not be
-used for most basic apps, but for more complex dynamic apps it might
-come in handy.
+If anyone has any suggestions or feedback, I would love to hear about it. If you have improvements, feel free to make a pull request.  I'd like to give a special thanks to the Shiny developers, especially [Joe Cheng](http://www.joecheng.com/) for always answering all my Shiny questions.

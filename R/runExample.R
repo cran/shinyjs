@@ -1,11 +1,10 @@
 #' Run shinyjs examples
 #'
 #' Launch a \code{shinyjs} example Shiny app that shows how to
-#' easily use \code{shinyjs} in an app.
-#'
+#' easily use \code{shinyjs} in an app.\cr\cr
 #' Run without any arguments to see a list of available example apps.
 #' The "demo" example is also
-#' \href{http://daattali.com:3838/shinyjs-demo/}{available online}
+#' \href{http://daattali.com/shiny/shinyjs-demo/}{available online}
 #' to experiment with.
 #'
 #' @param example The app to launch
@@ -30,7 +29,7 @@ runExample <- function(example) {
 
   if (missing(example) || !nzchar(example)) {
     message(
-      'Please run `runExample()` with a valid example app as,an argument.\n',
+      'Please run `runExample()` with a valid example app as an argument.\n',
       validExamples)
     return(invisible(NULL))
   }
@@ -43,6 +42,4 @@ runExample <- function(example) {
   }
 
   shiny::runApp(appDir, display.mode = "normal")
-
-  invisible(NULL)
 }

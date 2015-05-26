@@ -16,20 +16,25 @@ toggleState(...)
 \arguments{
 \item{...}{The following parameters are available:
 \tabular{ll}{
-  \strong{\code{id}}     \tab The id of the input element/Shiny tag \cr
+  \strong{\code{id}}         \tab The id of the input element/Shiny tag \cr
+  \strong{\code{condition}}  \tab An optional argument to \code{toggleState},
+                                  see 'Details' below. \cr
 }}
 }
 \description{
 Enable or disable an input element. A disabled element is not usable and
 not clickable, while an enabled element (default) can receive user input.
-Many input tags can be used with these functions, such as text inputs
+Any shiny input tag can be used with these functions, such as text inputs
 (\code{shiny::textInput}), select lists (\code{shiny::selectInput}),
-buttons (\code{shiny::actionButton}) and many others.
-}
-\details{
+buttons (\code{shiny::actionButton}) and all others.\cr\cr
 \strong{\code{enable}} enables an input, \strong{\code{disable}} disabled
 an input,\strong{\code{toggleState}} enables an input if it is disabled
-and disables an input if it is already enabled.
+and disables an input if it is already enabled.\cr\cr
+If \code{condition} is given to \code{toggleState}, that condition will be used
+to determine if to enable or disable the input. The element will be enabled if
+the condition evalutes to \code{TRUE} and disabled otherwise. If you find
+yourself writing code such as \code{if (test()) enable(id) else disable(id)}
+then you can use \code{toggleState} instead: \code{toggleState(id, test())}.
 }
 \note{
 \code{shinyjs} must be initialized with a call to \code{useShinyjs()}
@@ -44,10 +49,7 @@ if (interactive()) {
       shiny::textInput("element", "Watch what happens to me")
     ),
     server = function(input, output, session) {
-      shiny::observe({
-        if (input$btn == 0) {
-          return(NULL)
-        }
+      shiny::observeEvent(input$btn, {
         # Change the following line for more examples
         toggleState("element")
       })
@@ -65,7 +67,24 @@ if (interactive()) {
   # input tags, such as the following examples
   shiny::actionButton("element", "I'm a button")
   shiny::fileInput("element", "Choose a file")
-  shiny::selectInput("element", "I'm a select box", 1:10, selectize = FALSE)
+  shiny::selectInput("element", "I'm a select box", 1:10)
+}
+
+## toggleState can be given an optional `condition` argument, which
+## determines if to enable or disable the input
+if (interactive()) {
+  shiny::shinyApp(
+    ui = shiny::fluidPage(
+      useShinyjs(),
+      shiny::textInput("text", "Please type at least 3 characters"),
+      shiny::actionButton("element", "Submit")
+    ),
+    server = function(input, output, session) {
+      shiny::observe({
+        toggleState(id = "element", condition = nchar(input$text) >= 3)
+      })
+    }
+  )
 }
 }
 \seealso{

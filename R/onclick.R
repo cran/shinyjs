@@ -44,7 +44,7 @@ onclick <- function(id, expr, add = FALSE) {
   parentFrame <- parent.frame(1)
 
   # grab the Shiny session that called us
-  session <- get("session", parentFrame)
+  session <- dynGetCopy("session")
 
   # attach an onclick callback from JS to call this function to execute the
   # given expression. To support multiple onclick handlers, each time this
@@ -58,10 +58,7 @@ onclick <- function(id, expr, add = FALSE) {
   # every time the given element is clicked
   expr <- deparse(substitute(expr))
 
-  shiny::observe({
-    if (is.null(session$input[[shinyInputId]])) {
-      return()
-    }
+  shiny::observeEvent(session$input[[shinyInputId]], {
     eval(parse(text = expr), envir = parentFrame)
   })
 

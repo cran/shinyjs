@@ -18,7 +18,7 @@ logjs(...)
 }}
 }
 \description{
-\code{info} shows a message to the user as a simple popup.
+\code{info} shows a message to the user as a simple popup.\cr
 \code{logjs} writes a message to the JavaScript console. \code{logjs} is
 mainly used for debugging purposes as a way to non-intrusively print
 messages, but it is also visible to the user if they choose to inspect the
@@ -36,10 +36,7 @@ if (interactive()) {
       shiny::actionButton("btn", "Click me")
     ),
     server = function(input, output, session) {
-      shiny::observe({
-        if (input$btn == 0) {
-          return(NULL)
-        }
+      shiny::observeEvent(input$btn, {
         # Change the following line for more examples
         info(paste0("The date is ", date()))
       })

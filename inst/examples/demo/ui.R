@@ -24,9 +24,10 @@ shinyUI(fluidPage(
      h1("Choose an R expression", class = "section-title"),
      div(id = "expr-container",
          selectInput("expr", label = NULL,
-                   choices = examplesNamed, selected = 1,
-                   multiple = FALSE, selectize = TRUE, width = "100%"
-     )),
+                 choices = examplesNamed, selected = 1,
+                 multiple = FALSE, selectize = TRUE, width = "100%"
+         )
+     ),
      actionButton("submitExpr", "Run", class = "btn-success"),
      shiny::hr(),
      uiOutput("helpText"),

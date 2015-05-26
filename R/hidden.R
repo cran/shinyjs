@@ -22,10 +22,7 @@
 #'       )
 #'     ),
 #'     server = function(input, output, session) {
-#'       shiny::observe({
-#'         if (input$btn == 0) {
-#'           return(NULL)
-#'         }
+#'       shiny::observeEvent(input$btn, {
 #'         show("element")
 #'       })
 #'     }
@@ -39,6 +36,6 @@ hidden <- function(tag) {
 
   tag <- shiny::tagAppendAttributes(
     tag,
-    class = "shinyjs-hide")
+    class = "shinyjs-hide shinyjs-hidden-init")
   tag
 }
