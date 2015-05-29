@@ -1,7 +1,7 @@
 Package: shinyjs
 Title: Perform Common JavaScript Operations in Shiny Apps using Plain R
         Code
-Version: 0.0.6.0
+Version: 0.0.6.2
 Authors@R: person("Dean", "Attali", email = "daattali@gmail.com",
     role = c("aut", "cre"))
 Description: Perform common JavaScript operations in Shiny
@@ -19,8 +19,8 @@ License: MIT + file LICENSE
 LazyData: true
 VignetteBuilder: knitr
 NeedsCompilation: no
-Packaged: 2015-05-26 00:14:03 UTC; Dean
+Packaged: 2015-05-28 06:45:06 UTC; Dean
 Author: Dean Attali [aut, cre]
 Maintainer: Dean Attali <daattali@gmail.com>
 Repository: CRAN
-Date/Publication: 2015-05-26 08:17:37
+Date/Publication: 2015-05-29 08:31:19
