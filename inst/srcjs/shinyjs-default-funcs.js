@@ -1,3 +1,6 @@
+// shinyjs by Dean Attal
+// Perform common JavaScript operations in Shiny apps using plain R code
+
 shinyjs = function() {
   return {
 
@@ -46,7 +49,7 @@ shinyjs = function() {
       };
 
       // grab all the shiny input containers
-      var inputContainers = $(".shiny-input-container")
+      var inputContainers = $(".shiny-input-container");
 
       // go through every Shiny input and based on what kind of input it is,
       // add some information to the HTML tag so that we can know how to
@@ -55,7 +58,9 @@ shinyjs = function() {
         var inputContainer = $(inputContainers[j]);
         var input = inputContainer;
         var foundInput = true;
-        var inputType = inputValue = inputId = null;
+        var inputType = null,
+            inputValue = null,
+            inputId = null;
 
         // dateInput
         if (input.hasClass("shiny-date-input")) {
@@ -73,11 +78,11 @@ shinyjs = function() {
         // checkboxGroupInput
         else if (input.hasClass("shiny-input-checkboxgroup")) {
           inputType = "CheckboxGroup";
-          var selected = new Array();
+          var selected = [];
           var selectedEls = input.find("input[type='checkbox']:checked");
           selectedEls.each(function() {
             selected.push($(this).val());
-          })
+          });
           inputValue = selected.join(",");
         }
         // radioButtons
@@ -101,6 +106,12 @@ shinyjs = function() {
           } else if (inputValue instanceof Array) {
             inputValue = inputValue.join(",");
           }
+        }
+        // colourInput
+        else if (input.children("input.shiny-colour-input").length > 0) {
+          input = input.children("input.shiny-colour-input");
+          inputType = "Colour";
+          inputValue = input.attr('data-init-value');
         }
         // numericInput
         else if (input.children("input[type='number']").length > 0) {
@@ -151,14 +162,35 @@ shinyjs = function() {
 
     // if the given HTML tag is a shiny input, return the input container.
     // otherwise, return the original tag
-    getContainer : function(el) {
-      var inputContainer = el.closest(".shiny-input-container");
-      if (inputContainer.length > 0) {
-        el = inputContainer;
-      }
-      return el;
+    getContainer : function(els) {
+      return $.map(els, function(el) {
+        el = $(el);
+        var inputContainer = el.closest(".shiny-input-container");
+        if (inputContainer.length > 0) {
+          el = inputContainer;
+        }
+        return el;
+      });
     },
 
+    // given a function parameters with several different ways to get DOM
+    // elements, retrieve the correct ones
+    getElements : function(params) {
+      var $els = null;
+      if (params.elements !== null && typeof params.elements !== "undefined") {
+        $els = params.elements;
+      } else if (params.id !== null && typeof params.id !== "undefined") {
+        $els = $("#" + params.id);
+      } else if (params.selector !== null && typeof params.selector !== "undefined") {
+        $els = $(params.selector);
+      }
+      if ($els === null || $els === undefined || $els.length == 0) {
+        console.log("shinyjs: Could not find DOM element");
+        console.log(params);
+        $els = null;
+      }
+      return $els;
+    },
 
     // -----------------------------------------------------------------
     // ------ All functions below are exported shinyjs function --------
@@ -166,80 +198,115 @@ shinyjs = function() {
 
     show : function (params) {
       var defaultParams = {
-        id : null,
-        anim : false,
+        id       : null,
+        anim     : false,
         animType : "slide",
-        time : 0.5,
+        time     : 0.5,
+        delay    : 0,
+        selector : null,
+        elements : null
       };
       params = shinyjs.getParams(params, defaultParams);
 
-      var el = $("#" + params.id);
+      var $els = shinyjs.getElements(params);
+      if ($els === null) return;
 
-      // for input elements, show the whole container, not just the input
-      el = shinyjs.getContainer(el);
+      // for input elements, hide the whole container, not just the input
+      $els = shinyjs.getContainer($els);
 
-      if (!params.anim) {
-        el.show();
-      } else {
-        if (params.animType == "fade") {
-          el.fadeIn(params.time * 1000);
+      setTimeout(function() {
+        if (!params.anim) {
+          $.map($els, function(el) {
+            $(el).show();
+          });
         } else {
-          el.slideDown(params.time * 1000);
+          if (params.animType == "fade") {
+            $.map($els, function(el) {
+              $(el).fadeIn(params.time * 1000);
+            });
+          } else {
+            $.map($els, function(el) {
+              $(el).slideDown(params.time * 1000);
+            });
+          }
         }
-      }
 
-      // If this was initially hidden when app started, tell shiny that it's
-      // now visible so that it can properly render dynamic elements
-      if (el.hasClass("shinyjs-hidden-init")) {
-        el.trigger("shown");
-        el.removeClass("shinyjs-hidden-init");
-      }
+        // If an element was initially hidden when app started, tell shiny that
+        // it's now visible so that it can properly render dynamic elements
+        $.map($els, function(el) {
+          if ($(el).hasClass("shinyjs-hidden-init")) {
+            $(el).trigger("shown");
+            $(el).removeClass("shinyjs-hidden-init");
+          }
+        });
+
+      }, params.delay * 1000);
     },
 
     hide : function (params) {
       var defaultParams = {
-        id : null,
-        anim : false,
+        id       : null,
+        anim     : false,
         animType : "slide",
-        time : 0.5,
+        time     : 0.5,
+        delay    : 0,
+        selector : null,
+        elements : null
       };
       params = shinyjs.getParams(params, defaultParams);
 
-      var el = $("#" + params.id);
+      var $els = shinyjs.getElements(params);
+      if ($els === null) return;
 
       // for input elements, hide the whole container, not just the input
-      el = shinyjs.getContainer(el);
+      $els = shinyjs.getContainer($els);
 
-      if (!params.anim) {
-        el.hide();
-      } else {
-        if (params.animType == "fade") {
-          el.fadeOut(params.time * 1000);
+      setTimeout(function() {
+        if (!params.anim) {
+          $.map($els, function(el) {
+            $(el).hide();
+          });
         } else {
-          el.slideUp(params.time * 1000);
+          if (params.animType == "fade") {
+            $.map($els, function(el) {
+              $(el).fadeOut(params.time * 1000);
+            });
+          } else {
+            $.map($els, function(el) {
+              $(el).slideUp(params.time * 1000);
+            });
+          }
         }
-      }
+      }, params.delay * 1000);
     },
 
     toggle : function (params) {
       var defaultParams = {
-        id : null,
-        anim : false,
-        animType : "slide",
-        time : 0.5,
+        id        : null,
+        anim      : false,
+        animType  : "slide",
+        time      : 0.5,
+        delay     : 0,
+        selector  : null,
         condition : null
       };
       params = shinyjs.getParams(params, defaultParams);
 
-      var el = $("#" + params.id);
-
-      // for input elements, toggle the whole container, not just the input
-      el = shinyjs.getContainer(el);
-
+      // if there is no condition, then hide/show each element based on whether
+      // it is currently shown or hidden
       if (params.condition === null) {
-        params.condition = shinyjs.isHidden(el);
+        var $els = shinyjs.getElements(params);
+        if ($els === null) return;
+
+        // for input elements, toggle the whole container, not just the input
+        $els = shinyjs.getContainer($els);
+
+        $.map($els, function(el) {
+          params.elements = $(el);
+          shinyjs.isHidden($(el)) ? shinyjs.show(params) : shinyjs.hide(params);
+        });
       }
-      if (params.condition) {
+      else if (params.condition) {
         shinyjs.show(params);
       } else {
         shinyjs.hide(params);
@@ -248,39 +315,54 @@ shinyjs = function() {
 
     addClass : function (params) {
       var defaultParams = {
-        id : null,
-        class : null
+        id       : null,
+        class    : null,
+        selector : null,
+        elements : null
       };
       params = shinyjs.getParams(params, defaultParams);
 
-      $("#" + params.id).addClass(params.class);
+      var $els = shinyjs.getElements(params);
+      if ($els === null) return;
+
+      $els.addClass(params.class);
     },
 
     removeClass : function (params) {
       var defaultParams = {
-        id : null,
-        class : null
+        id       : null,
+        class    : null,
+        selector : null,
+        elements : null
       };
       params = shinyjs.getParams(params, defaultParams);
 
-      $("#" + params.id).removeClass(params.class);
+      var $els = shinyjs.getElements(params);
+      if ($els === null) return;
+
+      $els.removeClass(params.class);
     },
 
     toggleClass : function (params) {
       var defaultParams = {
-        id : null,
-        class : null,
-        condition : null
+        id        : null,
+        class     : null,
+        condition : null,
+        selector  : null
       };
       params = shinyjs.getParams(params, defaultParams);
 
-      var el = $("#" + params.id);
-
+      // it there is no condition, add/remove class based on current state
       if (params.condition === null) {
-        params.condition = !el.hasClass(params.class);
-      }
+        var $els = shinyjs.getElements(params);
+        if ($els === null) return;
 
-      if (params.condition) {
+        $.map($els, function(el) {
+          params.elements = $(el);
+          $(el).hasClass(params.class) ? shinyjs.removeClass(params) : shinyjs.addClass(params);
+        });
+      }
+      else if (params.condition) {
         shinyjs.addClass(params);
       } else {
         shinyjs.removeClass(params);
@@ -289,59 +371,87 @@ shinyjs = function() {
 
     enable : function (params) {
       var defaultParams = {
-        id : null
+        id       : null,
+        selector : null,
+        elements : null
       };
       params = shinyjs.getParams(params, defaultParams);
 
-      var el = $("#" + params.id);
+      var $els = shinyjs.getElements(params);
+      if ($els === null) return;
 
-      // selectize and slider inputs need special javascript
-      if (el.hasClass("selectized")) {
-        el.selectize()[0].selectize.enable();
-      } else if (el.hasClass("js-range-slider")) {
-        el.data("ionRangeSlider").update({ disable : false })
-      }
+      $.map($els, function(el) {
+        var $el = $(el);
 
-      // enable the container as well as all individual inputs inside
-      // (this is needed for grouped inputs such as radio and checkbox groups)
-      el = $(el.toArray().concat(el.find("input").toArray()));
-      el.prop('disabled', false);
+        // selectize and slider inputs need special javascript
+        if ($el.hasClass("selectized")) {
+          $el.selectize()[0].selectize.enable();
+        } else if ($el.hasClass("js-range-slider")) {
+          $el.data("ionRangeSlider").update({ disable : false });
+        }
+        // for colour inputs, we want to enable all input fields
+        else if ($el.hasClass("shiny-colour-input")) {
+          $el = $(shinyjs.getContainer($el)[0]);
+        }
+
+        // enable the container as well as all individual inputs inside
+        // (this is needed for grouped inputs such as radio and checkbox groups)
+        $el = $($el.toArray().concat($el.find("input").toArray()));
+        $el.prop('disabled', false);
+      });
     },
 
     disable : function (params) {
       var defaultParams = {
-        id : null
+        id       : null,
+        selector : null,
+        elements : null
       };
       params = shinyjs.getParams(params, defaultParams);
 
-      var el = $("#" + params.id);
+      var $els = shinyjs.getElements(params);
+      if ($els === null) return;
 
-      // selectize and slider inputs need special javascript
-      if (el.hasClass("selectized")) {
-        el.selectize()[0].selectize.disable();
-      } else if (el.hasClass("js-range-slider")) {
-        el.data("ionRangeSlider").update({ disable : true })
-      }
+      $.map($els, function(el) {
+        var $el = $(el);
 
-      // disable the container as well as all individual inputs inside
-      // (this is needed for grouped inputs such as radio and checkbox groups)
-      el = $(el.toArray().concat(el.find("input").toArray()));
-      el.prop('disabled', true);
+        // selectize and slider inputs need special javascript
+        if ($el.hasClass("selectized")) {
+          $el.selectize()[0].selectize.disable();
+        } else if ($el.hasClass("js-range-slider")) {
+          $el.data("ionRangeSlider").update({ disable : true });
+        }
+        // for colour inputs, we want to disable all input fields
+        else if ($el.hasClass("shiny-colour-input")) {
+          $el = $(shinyjs.getContainer($el)[0]);
+        }
+
+        // disable the container as well as all individual inputs inside
+        // (this is needed for grouped inputs such as radio and checkbox groups)
+        $el = $($el.toArray().concat($el.find("input").toArray()));
+        $el.prop('disabled', true);
+      });
     },
 
     toggleState : function (params) {
       var defaultParams = {
-        id : null,
-        condition : null
+        id        : null,
+        condition : null,
+        selector  : null
       };
       params = shinyjs.getParams(params, defaultParams);
 
-      var el = $("#" + params.id);
+      // it there is no condition, enable/disable based on current state
       if (params.condition === null) {
-        params.condition = shinyjs.isDisabled(el);
-      }
+        var $els = shinyjs.getElements(params);
+        if ($els === null) return;
 
-      if (params.condition) {
+        $.map($els, function(el) {
+          params.elements = $(el);
+          shinyjs.isDisabled($(el)) ? shinyjs.enable(params) : shinyjs.disable(params);
+        });
+      }
+      else if (params.condition) {
         shinyjs.enable(params);
       } else {
         shinyjs.disable(params);
@@ -405,7 +515,7 @@ shinyjs = function() {
 
       // for shiny inputs, perform the action when any section of the input
       // widget is clicked
-      el = shinyjs.getContainer(el);
+      el = $(shinyjs.getContainer(el)[0]);
 
       var shinyInputId = params.shinyInputId;
       var attrName = "data-shinyjs-onclick";

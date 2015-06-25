@@ -22,6 +22,13 @@
 #'   \strong{\code{time}}       \tab The number of seconds to make the
 #'                                   animation last
 #'                                   (default: \code{0.5}) \cr
+#'   \strong{\code{delay}}      \tab The number of seconds to wait before
+#'                                   hiding/showing the element
+#'                                   (default: \code{0}) \cr
+#'   \strong{\code{selector}}   \tab JQuery selector of the elements to show/hide.
+#'                                   Ignored if the \code{id} argument is given.
+#'                                   For example, to select all span elements with
+#'                                   class x, use \code{selector = "span.x"}\cr
 #'   \strong{\code{condition}}  \tab An optional argument to \code{toggle}, see
 #'                                   'Details' below. \cr
 #' }
@@ -52,6 +59,7 @@
 #'   toggle(id = "element")
 #'   toggle("element", TRUE)
 #'   toggle("element", TRUE, "fade", 2)
+#'   toggle(id = "element", delay = 1)
 #'   toggle(id = "element", time = 1, anim = TRUE, animType = "slide")
 #'   show("element")
 #'   show(id = "element", anim = TRUE)
