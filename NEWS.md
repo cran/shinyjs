@@ -1,3 +1,27 @@
+# shinyjs 0.0.8.3
+
+2015-07-30
+
+- `disable`/`enable` now work for `downloadButton` elements
+
+# shinyjs 0.0.8.2
+
+2015-07-23
+
+- You no longer need to define the server function with the `session` parameter! A shiny server function defined as `server = function(input, output) {...}` can work with `shinyjs`
+
+# shinyjs 0.0.8.1
+
+2015-07-17
+
+- Fix bug where periods in element names weren't working for some shinyjs functions
+
+# shinyjs 0.0.8.0
+
+2015-06-30
+
+- added an option to allow only a predefined list of colours to select from in `colourInput` (feature request from Hadley and other Twitter users)
+
 # shinyjs 0.0.7.0
 
 2015-06-23

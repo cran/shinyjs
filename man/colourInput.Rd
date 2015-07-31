@@ -5,7 +5,8 @@
 \title{Create a colour input control}
 \usage{
 colourInput(inputId, label, value = "white", showColour = c("both", "text",
-  "background"), allowTransparent = FALSE, transparentText)
+  "background"), palette = c("square", "limited"), allowedCols,
+  allowTransparent = FALSE, transparentText)
 }
 \arguments{
 \item{inputId}{The \code{input} slot that will be used to access the value.}
@@ -16,6 +17,15 @@ colourInput(inputId, label, value = "white", showColour = c("both", "text",
 
 \item{showColour}{Whether to show the chosen colour as text inside the input,
 as the background colour of the input, or both (default).}
+
+\item{palette}{The type of colour palette to allow the user to select colours
+from. \code{square} (default) shows a square colour palette that allows the
+user to choose any colour, while \code{limited} only gives the user a
+predefined list of colours to choose from.}
+
+\item{allowedCols}{A list of colours that the user can choose from. Only
+applicable when \code{palette == "limited"}. The \code{limited} palette
+uses a default list of 40 colours if \code{allowedCols} is not defined.}
 
 \item{allowTransparent}{If \code{TRUE}, then add a checkbox that allows the
 user to select the \code{transparent} colour.}
@@ -52,13 +62,15 @@ for a live demo.
 if (interactive()) {
   shiny::shinyApp(
     ui = shiny::fluidPage(
-      shiny::div("Selected colour:",
+      shiny::strong("Selected colour:",
                  shiny::textOutput("value", inline = TRUE)),
       colourInput("col", "Choose colour", "red"),
       shiny::h3("Update colour input"),
       shiny::textInput("text", "New colour: (colour name or HEX value)"),
       shiny::selectInput("showColour", "Show colour",
         c("both", "text", "background")),
+      shiny::selectInput("palette", "Colour palette",
+        c("square", "limited")),
       shiny::checkboxInput("allowTransparent", "Allow transparent", FALSE),
       shiny::actionButton("btn", "Update")
     ),
@@ -66,7 +78,8 @@ if (interactive()) {
       shiny::observeEvent(input$btn, {
         updateColourInput(session, "col",
           value = input$text, showColour = input$showColour,
-          allowTransparent = input$allowTransparent)
+          allowTransparent = input$allowTransparent,
+          palette = input$palette)
       })
       output$value <- shiny::renderText(input$col)
     }

@@ -24,7 +24,7 @@
 #'       shiny::actionButton("btn", "Click me"),
 #'       shiny::p(id = "element", "Click me to change my text")
 #'     ),
-#'     server = function(input, output, session) {
+#'     server = function(input, output) {
 #'       # Change the following lines for more examples
 #'       onclick("btn", info(date()))
 #'       onclick("element", text("element", "Hello!"))
@@ -43,8 +43,8 @@ onclick <- function(id, expr, add = FALSE) {
   # evaluate expressions in the caller's environment
   parentFrame <- parent.frame(1)
 
-  # grab the Shiny session that called us
-  session <- dynGetCopy("session")
+  # get the Shiny session
+  session <- getSession()
 
   # attach an onclick callback from JS to call this function to execute the
   # given expression. To support multiple onclick handlers, each time this

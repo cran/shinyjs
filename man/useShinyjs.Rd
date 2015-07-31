@@ -12,13 +12,8 @@ to the app's \code{<head>} tag.
 }
 \description{
 This function must be called from a Shiny app's UI in order for all other
-\code{shinyjs} functions to work.
-}
-\note{
-When initializing the Shiny app's server, you must supply the
-\code{session} parameter to the server function, ie. initialize the server
-as \code{server = function(input, output, session)} rather than
-\code{server = function(input, output)}
+\code{shinyjs} functions to work.\cr\cr
+You can call \code{useShinyjs()} from anywhere inside the UI.
 }
 \examples{
 if (interactive()) {
@@ -28,7 +23,7 @@ if (interactive()) {
       shiny::actionButton("btn", "Click me"),
       shiny::p(id = "element", "Watch what happens to me")
     ),
-    server = function(input, output, session) {
+    server = function(input, output) {
       shiny::observe({
         if (input$btn == 0) {
           return(NULL)
