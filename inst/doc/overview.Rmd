@@ -62,6 +62,8 @@ to `show`).
 - `enable`/`disable`/`toggleState` - enable or disable an input element, such
 as a button or a text input.
 
+- `disabled` - initialize a Shiny input as disabled.
+
 - `info` - show a message to the user (using JavaScript's `alert` under the
 hood).
 
@@ -399,6 +401,29 @@ Running the code above produces this shiny app:
 See how easy that was? All I had to do was make the JavaScript function `shinyjs.pageCol`, pass the JavaScript code as an argument to `extendShinyjs`, and then I can call `js$pageCol()`.  That's the basic idea: any JavaScript function named `shinyjs.foo` will be available to call as `js$foo()`. You can either pass the JS code as a string to the `text` argument, or place the JS code in a separate JavaScript file and use the `script` argument to specify where the code can be found. Using a separate file is generally prefered over writing the code inline, but in these examples I will always use the `text` argument to keep it simple.
 
 Note: in order to use `extendShinyjs`, you must have the `V8` package installed. You can install it with `install.packages("V8")`.
+
+#### Running JavaScript code on page load
+
+If there is any JavaScript code that you want to run immediately when the page loads rather than having to call it from the server, you can place it inside a `shinyjs.init` function. The function `shinyjs.init` will automatically be called when the Shiny app's HTML is initialized. A common use for this is when registering event handlers or initializing JavaScript objects, as these usually just need to run once when the page loads.
+
+For example, the following example uses `shinyjs.init` to register an event
+handler so that every keypress will print its corresponding key code:
+
+```
+jscode <- "
+shinyjs.init = function() {
+  $(document).keypress(function(e) { alert('Key pressed: ' + e.which); });
+}"
+
+runApp(shinyApp(
+  ui = fluidPage(
+    useShinyjs(),
+    extendShinyjs(text = jscode),
+    "Press any key"
+  ),
+  server = function(input, output) {}
+))
+```
 
 #### Passing arguments from R to JavaScript
 

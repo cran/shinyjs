@@ -1,3 +1,13 @@
+# shinyjs 0.1.0
+
+2015-08-12
+
+- add support for `shinyjs.init` function when using `extendShinyjs` that runs when the page loads. This provides the user a way to register event handlers or do some initializations that automatically run on page load rather than calling it manually in the server
+- add `disabled` function that initializes a Shiny input in a disabled state
+- add a `rmd` parameter to `useShinyjs` that lets you use shinyjs inside interactive R markdown documents (default is FALSE to favour regular Shiny apps)
+- the bulk of the shinyjs JavaScript code is no longer embeded in the HTML as text and is instead linked to as a file. This makes the Shiny app's HTML much cleaner and smaller
+- use htmltools dependency system for handling javascript/css dependencies
+
 # shinyjs 0.0.8.3
 
 2015-07-30
