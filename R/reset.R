@@ -10,10 +10,6 @@
 #' meaning that you cannot use this function to reset the value of an
 #' action button back to 0.
 #'
-#' Note that this function only works on input widgets that are rendered in
-#' the UI. Any input that is created dynamically using \code{uiOutput} +
-#' \code{renderUI} will not be resettable.
-#'
 #' @param id The id of the input element to reset or the id of an HTML
 #' tag to reset all input elements inside it.
 #' @seealso \code{\link[shinyjs]{useShinyjs}},
@@ -88,9 +84,12 @@ reset <- function(id) {
         if (type == "CheckboxGroup" ||
             type == "RadioButtons" ||
             type == "Select") {
-          funcParams[['selected']] <- strsplit(value, ",")[[1]]
+          funcParams[['selected']] <- unlist(strsplit(value, ","))
+        } else if (type == "Slider") {
+          value <- unlist(strsplit(value, ","))
+          funcParams[['value']] <- value
         } else if (type == "DateRange") {
-          dates <- strsplit(value, ",")[[1]]
+          dates <- unlist(strsplit(value, ","))
           funcParams[['start']] <- dates[1]
           funcParams[['end']] <- dates[2]
         } else {
@@ -109,16 +108,4 @@ reset <- function(id) {
   })
 
   invisible(NULL)
-}
-
-#' Resettable (deprecated)
-#'
-#' Do not use this function - it is not needed.
-#'
-#' @param tag Shiny tag.
-#' @export
-resettable <- function(tag) {
-  message("You do not need to call `resettable`, any input can be reset without",
-          "initialization")
-  tag
 }

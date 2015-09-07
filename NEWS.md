@@ -1,3 +1,45 @@
+# shinyjs 0.2.0
+
+2015-09-05
+
+- version bump for CRAN submission
+
+# shinyjs 0.1.4
+
+2015-09-05
+
+- refactor JavaScript code to remove code duplication and add better internal documentation
+- bug fix: `disabled` now works with all input types
+- bug fix: `enable`/`disable` did not work on `selectInput`, `sliderInput`, and `actionButton`
+- bug fix: resetting a slider input with a range did not reset the end point, only the start point
+
+# shinyjs 0.1.3
+
+2015-09-05
+
+- `onclick` and `onevent` now work with dynamically generated elements. Not a trivial fix, but enough people requested it that it was important
+
+# shinyjs 0.1.2
+
+2015-09-04
+
+**Lots of big changes**
+
+- added `delay` function, which allows you to run code after a specified amount of time has elapsed
+- **BREAKING CHANGE** - removed `delay` parameter from `hide`/`show`/`toggle` because the same behaviour can now be achieved using the `delay` function (if you previously used `show(id = "text", delay = 2)`, you can now use `delay(2000, show("text"))`)
+- added `onevent` function, which is similar to `onclick` but can be used for many other different events
+- `reset` now works with dynamically generated elements (inputs that are created with `renderUI`)
+- make `disabled` work for dynamically generated elements
+- removed defunc `resettable` function
+
+# shinyjs 0.1.1
+
+2015-08-19
+
+- better debugging: when a shinyjs JavaScript function is called with a mix of both named and unnamed arguments (which is not allowed), tell the user what function exactly was called. This is done because sometimes a different package doesn't properly namespace its function calls and end up accidentally calling shinyjs functions, which results in weird bugs.
+- add comments to the `onclick` documentation, to make it clear that it can't work with dynamic UIs
+- improved documentation
+
 # shinyjs 0.1.0
 
 2015-08-12
