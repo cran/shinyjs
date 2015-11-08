@@ -1,3 +1,23 @@
+# shinyjs 0.2.3
+
+2015-11-05
+
+- Updated README
+
+
+# shinyjs 0.2.2
+
+2015-09-15
+
+- added `html` argument to `useShinyjs()`, which adds support for using shinyjs in shiny apps that are built with index.html instead of using Shiny UI (more details in the README)
+- refactored internally how shinyjs resources are handled so that the resource path is now prefixed with "shinyjs" or "shinyjs-extend" instead of a random string
+
+# shinyjs 0.2.1
+
+2015-09-13
+
+- add a `debug` parameter to `useShinyjs` that will cause detailed debugging messages to be printed to the JavaScript console when turned on
+
 # shinyjs 0.2.0
 
 2015-09-05
