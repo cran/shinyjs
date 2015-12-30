@@ -4,7 +4,20 @@
 #' regular R functions. This is a more advanced technique and can only
 #' be used if you know JavaScript. See 'Basic Usage' below for more information
 #' or \href{https://github.com/daattali/shinyjs}{view the full README and demos}
-#' to learn more.
+#' to learn more. Note that you have to install the `V8` package in order to
+#' use this function.
+#'
+#' @param script Path to a JavaScript file that contains all the functions.
+#' Each function name must begin with `shinyjs.`, for example
+#' `shinyjs.myfunc`. See 'Basic Usage' below.
+#' @param text Inline JavaScript code to use. If your JavaScript function is very
+#' short and you don't want to create a separate file for it, you can provide the
+#' code as a string. See 'Basic Usage' below.
+#' @param functions The names of the shinyjs JavaScript functions which you defined and
+#' want to be able to call using \code{shinyjs}. Only use this argument if you cannot
+#' install \code{V8} on your machine. I repeat: do not use this argument if you're
+#' able to install \code{V8} on your machine. For example, if you defined JavaScript functions
+#' named \code{shinyjs.foo} and \code{shinyjs.bar}, then use \code{functions = c("foo", "bar")}.
 #'
 #' @section Basic Usage:
 #' Any JavaScript function defined in your script that begins with `shinyjs.`
@@ -27,7 +40,7 @@
 #'
 #' jsCode <- "shinyjs.pageCol = function(params){$('body').css('background', params);}"
 #'
-#' runApp(shinyApp(
+#' shinyApp(
 #'   ui = fluidPage(
 #'     useShinyjs(),
 #'     extendShinyjs(text = jsCode),
@@ -39,7 +52,7 @@
 #'       js$pageCol(input$col)
 #'     })
 #'   }
-#' ))
+#' )
 #' }
 #'
 #' As the example above shows, after defining the JavaScript function
@@ -67,14 +80,14 @@
 #' shinyjs.init = function() {
 #'   $(document).keypress(function(e) { alert('Key pressed: ' + e.which); });
 #' }"
-#' runApp(shinyApp(
+#' shinyApp(
 #'   ui = fluidPage(
 #'     useShinyjs(),
 #'     extendShinyjs(text = jscode),
 #'     "Press any key"
 #'   ),
 #'   server = function(input, output) {}
-#' ))
+#' )
 #' }
 #'
 #' @section Passing arguments from R to JavaScript:
@@ -121,17 +134,11 @@
 #' will not work because the arguments are unnamed and the JS function expects
 #' the id to come before the colour. See the examples below for a shiny app
 #' that uses this JS function.
-#' @param script Path to a JavaScript file that contains all the functions.
-#' Each function name must begin with `shinyjs.`, for example
-#' `shinyjs.myfunc`. See 'Basic Usage' below.
-#' @param text Inline JavaScript code to use. If your JavaScript function is very
-#' short and you don't want to create a separate file for it, you can provide the
-#' code as a string. See 'Basic Usage' below.
 #' @return Scripts that \code{shinyjs} requires in order to run your JavaScript
 #' functions as if they were R code.
 #' @note You still need to call \code{useShinyjs()} as usual, and the call to
 #' \code{useShinyjs()} must come before the call to \code{extendShinyjs()}.
-#' @note The \code{V8} package is required to use this function.
+#' @note The \code{V8} package is strongly recommended if you use this function.
 #' @note If you are deploying your app to shinyapps.io and are using \code{extendShinyjs()},
 #' then you need to let shinyapps.io know that the \code{V8} package is required.
 #' The easiest way to do this is by simply including \code{library(V8)} somewhere.
@@ -145,7 +152,7 @@
 #'
 #'     jsCode <- "shinyjs.pageCol = function(params){$('body').css('background', params);}"
 #'
-#'     runApp(shinyApp(
+#'     shinyApp(
 #'       ui = fluidPage(
 #'         useShinyjs(),
 #'         extendShinyjs(text = jsCode),
@@ -157,7 +164,11 @@
 #'           js$pageCol(input$col)
 #'         })
 #'       }
-#'     ))
+#'     )
+#'
+#'     # If you do not have `V8` package installed, you will need to add another
+#'     # argument to the `extendShinyjs()` function:
+#'     # extendShinyjs(text = jsCode, functions = c("pageCol"))
 #'
 #'   ==============
 #'
@@ -176,7 +187,7 @@
 #'       el.css("background-color", params.col);
 #'     }'
 #'
-#'     runApp(shinyApp(
+#'     shinyApp(
 #'       ui = fluidPage(
 #'         useShinyjs(),
 #'         extendShinyjs(text = jsCode),
@@ -192,7 +203,7 @@
 #'           js$backgroundCol(input$selector, input$col)
 #'         })
 #'       }
-#'     ))
+#'     )
 #'
 #'   ==============
 #'
@@ -218,7 +229,7 @@
 #'   values are set if no value is given to a parameter.
 #'
 #'       library(shiny)
-#'       runApp(shinyApp(
+#'       shinyApp(
 #'         ui = fluidPage(
 #'           useShinyjs(),
 #'           extendShinyjs("myfuncs.js"),
@@ -238,53 +249,66 @@
 #'             js$increment(num = 10, id = 'number')
 #'           })
 #'         }
-#'       ))
+#'       )
 #' }
 #' @export
-extendShinyjs <- function(script, text) {
-  if (!requireNamespace("V8", quietly = TRUE)) {
-    errMsg(paste0("V8 package is required to use `extendShinyjs`. Please install it ",
-                  "with `install.packages(\"V8\")`."))
-  }
-
+extendShinyjs <- function(script, text, functions) {
   if (missing(script) && missing(text)) {
     errMsg("Either `script` or `text` need to be provided.")
   }
 
-  # create a js context with a `shinyjs` object that user-defined functions
-  # can populate
-  ct <- V8::new_context(NULL, FALSE, FALSE)
-  ct$assign("shinyjs", c())
-
-  # read functions from a script
-  if (!missing(script)) {
-    if (!file.exists(script)) {
-      errMsg(sprintf("Could not find JavaScript file `%s`.", script))
+  # if V8 is not installed, the user must provide the JS function names
+  if (!requireNamespace("V8", quietly = TRUE)) {
+    if (missing(functions)) {
+      errMsg(paste0("V8 package is required to use `extendShinyjs`. Please install it ",
+                    "with `install.packages(\"V8\")`.\nIf you cannot successfully install",
+                    "V8 on your machine, you need to use the `functions` argument."))
+    }
+    jsFuncs <- functions
+  }
+  # if V8 is installed (preferable method), parse the input for JS functions
+  else {
+    if (!missing(functions)) {
+      warning(paste0("shinyjs: Ignoring the `functions` argument to `extendShinyjs()` ",
+                      "because it is not needed when you have the `V8` package installed."),
+              call. = FALSE)
     }
 
-    tryCatch({
-      ct$source(script)
-      shiny::addResourcePath("shinyjs-extend", dirname(script))
-      script <- file.path("shinyjs-extend", basename(script))      
-    }, error = function(err) {
-      errMsg(sprintf("Error parsing the JavaScript file: %s.", err$message))
-    })
-  }
+    # create a js context with a `shinyjs` object that user-defined functions
+    # can populate
+    ct <- V8::new_context(NULL, FALSE, FALSE)
+    ct$assign("shinyjs", c())
 
-  # read functions from in-line text
-  if (!missing(text)) {
-    tryCatch({
-      ct$eval(text)
-    }, error = function(err) {
-      errMsg(sprintf("Error parsing the JavaScript code provided.", err$message))
-    })
-  }
+    # read functions from a script
+    if (!missing(script)) {
+      if (!file.exists(script)) {
+        errMsg(sprintf("Could not find JavaScript file `%s`.", script))
+      }
 
-  # find out what functions the user defined
-  jsFuncs <- ct$get(V8::JS("Object.keys(shinyjs)"))
-  if (length(jsFuncs) == 0) {
-    errMsg(paste0("Could not find any shinyjs functions in the JavaScript file. ",
-                  "Did you remember to prepend every function's name with `shinyjs.`?"))
+      tryCatch({
+        ct$source(script)
+        shiny::addResourcePath("shinyjs-extend", dirname(script))
+        script <- file.path("shinyjs-extend", basename(script))
+      }, error = function(err) {
+        errMsg(sprintf("Error parsing the JavaScript file: %s.", err$message))
+      })
+    }
+
+    # read functions from in-line text
+    if (!missing(text)) {
+      tryCatch({
+        ct$eval(text)
+      }, error = function(err) {
+        errMsg(sprintf("Error parsing the JavaScript code provided.", err$message))
+      })
+    }
+
+    # find out what functions the user defined
+    jsFuncs <- ct$get(V8::JS("Object.keys(shinyjs)"))
+    if (length(jsFuncs) == 0) {
+      errMsg(paste0("Could not find any shinyjs functions in the JavaScript file. ",
+                    "Did you remember to prepend every function's name with `shinyjs.`?"))
+    }
   }
 
   # add all the given functions to the shinyjs namespace so that they can be

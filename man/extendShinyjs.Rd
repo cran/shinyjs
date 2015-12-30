@@ -4,7 +4,7 @@
 \alias{extendShinyjs}
 \title{Extend shinyjs by calling your own JavaScript functions}
 \usage{
-extendShinyjs(script, text)
+extendShinyjs(script, text, functions)
 }
 \arguments{
 \item{script}{Path to a JavaScript file that contains all the functions.
@@ -14,6 +14,12 @@ Each function name must begin with `shinyjs.`, for example
 \item{text}{Inline JavaScript code to use. If your JavaScript function is very
 short and you don't want to create a separate file for it, you can provide the
 code as a string. See 'Basic Usage' below.}
+
+\item{functions}{The names of the shinyjs JavaScript functions which you defined and
+want to be able to call using \code{shinyjs}. Only use this argument if you cannot
+install \code{V8} on your machine. I repeat: do not use this argument if you're
+able to install \code{V8} on your machine. For example, if you defined JavaScript functions
+named \code{shinyjs.foo} and \code{shinyjs.bar}, then use \code{functions = c("foo", "bar")}.}
 }
 \value{
 Scripts that \code{shinyjs} requires in order to run your JavaScript
@@ -24,13 +30,14 @@ Add your own JavaScript functions that can be called from R as if they were
 regular R functions. This is a more advanced technique and can only
 be used if you know JavaScript. See 'Basic Usage' below for more information
 or \href{https://github.com/daattali/shinyjs}{view the full README and demos}
-to learn more.
+to learn more. Note that you have to install the `V8` package in order to
+use this function.
 }
 \note{
 You still need to call \code{useShinyjs()} as usual, and the call to
 \code{useShinyjs()} must come before the call to \code{extendShinyjs()}.
 
-The \code{V8} package is required to use this function.
+The \code{V8} package is strongly recommended if you use this function.
 
 If you are deploying your app to shinyapps.io and are using \code{extendShinyjs()},
 then you need to let shinyapps.io know that the \code{V8} package is required.
@@ -60,7 +67,7 @@ library(shinyjs)
 
 jsCode <- "shinyjs.pageCol = function(params){$('body').css('background', params);}"
 
-runApp(shinyApp(
+shinyApp(
   ui = fluidPage(
     useShinyjs(),
     extendShinyjs(text = jsCode),
@@ -72,7 +79,7 @@ runApp(shinyApp(
       js$pageCol(input$col)
     })
   }
-))
+)
 }
 
 As the example above shows, after defining the JavaScript function
@@ -102,14 +109,14 @@ jscode <- "
 shinyjs.init = function() {
   $(document).keypress(function(e) { alert('Key pressed: ' + e.which); });
 }"
-runApp(shinyApp(
+shinyApp(
   ui = fluidPage(
     useShinyjs(),
     extendShinyjs(text = jscode),
     "Press any key"
   ),
   server = function(input, output) {}
-))
+)
 }
 }
 
@@ -166,7 +173,7 @@ that uses this JS function.
 
     jsCode <- "shinyjs.pageCol = function(params){$('body').css('background', params);}"
 
-    runApp(shinyApp(
+    shinyApp(
       ui = fluidPage(
         useShinyjs(),
         extendShinyjs(text = jsCode),
@@ -178,7 +185,11 @@ that uses this JS function.
           js$pageCol(input$col)
         })
       }
-    ))
+    )
+
+    # If you do not have `V8` package installed, you will need to add another
+    # argument to the `extendShinyjs()` function:
+    # extendShinyjs(text = jsCode, functions = c("pageCol"))
 
   ==============
 
@@ -197,7 +208,7 @@ that uses this JS function.
       el.css("background-color", params.col);
     }'
 
-    runApp(shinyApp(
+    shinyApp(
       ui = fluidPage(
         useShinyjs(),
         extendShinyjs(text = jsCode),
@@ -213,7 +224,7 @@ that uses this JS function.
           js$backgroundCol(input$selector, input$col)
         })
       }
-    ))
+    )
 
   ==============
 
@@ -239,7 +250,7 @@ that uses this JS function.
   values are set if no value is given to a parameter.
 
       library(shiny)
-      runApp(shinyApp(
+      shinyApp(
         ui = fluidPage(
           useShinyjs(),
           extendShinyjs("myfuncs.js"),
@@ -259,7 +270,7 @@ that uses this JS function.
             js$increment(num = 10, id = 'number')
           })
         }
-      ))
+      )
 }
 }
 \seealso{

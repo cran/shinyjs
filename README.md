@@ -504,7 +504,8 @@ Calling your own JavaScript functions from R
 </h2>
 You can also use `shinyjs` to add your own JavaScript functions that can
 be called from R as if they were regular R functions using
-`extendShinyjs`.
+`extendShinyjs`. Note that you have to install the `V8` package in order
+to use this function.
 
 <h3 id="extendshinyjs-simple">
 Simple example
@@ -519,7 +520,7 @@ colour of the page.
 
     jsCode <- "shinyjs.pageCol = function(params){$('body').css('background', params);}"
 
-    runApp(shinyApp(
+    shinyApp(
       ui = fluidPage(
         useShinyjs(),
         extendShinyjs(text = jsCode),
@@ -531,7 +532,7 @@ colour of the page.
           js$pageCol(input$col)
         })
       }
-    ))
+    )
 
 Running the code above produces this shiny app:
 
@@ -569,14 +570,14 @@ code:
       $(document).keypress(function(e) { alert('Key pressed: ' + e.which); });
     }"
 
-    runApp(shinyApp(
+    shinyApp(
       ui = fluidPage(
         useShinyjs(),
         extendShinyjs(text = jscode),
         "Press any key"
       ),
       server = function(input, output) {}
-    ))
+    )
 
 <h3 id="extendshinyjs-args">
 Passing arguments from R to JavaScript
@@ -644,7 +645,7 @@ how to use `extendShinyjs` with parameters):
       el.css("background-color", params.col);
     }'
 
-    runApp(shinyApp(
+    shinyApp(
       ui = fluidPage(
         useShinyjs(),
         extendShinyjs(text = jsCode),
@@ -660,7 +661,7 @@ how to use `extendShinyjs` with parameters):
           js$backgroundCol(input$selector, input$col)
         })
       }
-    ))
+    )
 
 And the resulting app:
 
@@ -674,7 +675,7 @@ file and use the `script` argument instead of `text`.
 <h3 id="extendshinyjs-v8">
 Note about V8 prerequisite
 </h3>
-In order to use `extendShinyjs`, you must have the `V8` package
+In order to use `extendShinyjs`, you should have the `V8` package
 installed. You can install it with `install.packages("V8")`.
 
 If you are deploying an app that uses `extendShinyjs` to
@@ -683,6 +684,11 @@ to `library(V8)` somewhere in your code. This is necessary because the
 shinyapps.io server needs to know that it should install the `V8`
 package. If you do not do this then you will simply see an error saying
 the package is missing.
+
+If you cannot install the `V8` package on your machine (some very old
+operating systems don't support it), then you can still use
+`extendShinyjs()` but you will have to provide the `functions` argument.
+Read more about this argument with `?shinyjs::extendShinyjs`.
 
 Motivation & alternatives using native Shiny
 --------------------------------------------

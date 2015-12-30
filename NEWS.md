@@ -1,3 +1,28 @@
+# shinyjs 0.3.0
+
+2015-12-30
+
+- bug fix: `hidden()` now works when used on an element with a `display` CSS property
+
+
+# shinyjs 0.2.6
+
+2015-12-14
+
+- bug fix: `show`/`hide` always trigger shown/hidden events
+
+# shinyjs 0.2.5
+
+2015-12-14
+
+- small UI change to colourInput demo shiny app
+
+# shinyjs 0.2.4
+
+2015-12-01
+
+- Support `extendShinyjs()` for users that cannot install the `V8` package
+
 # shinyjs 0.2.3
 
 2015-11-05
