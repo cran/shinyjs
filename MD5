@@ -1,4 +1,4 @@
-ed5cb1241b3fbccd6a3bb3b37e7f479e *DESCRIPTION
+c690823b5da4402311912ec6d5b21b5c *DESCRIPTION
 757560115ad57dee72039d2ecd8d2381 *LICENSE
 9a60d8fb14eac5ae1a11517325d709e1 *NAMESPACE
 04d47eedec387129afbdb97811bca8a4 *NEWS.md
@@ -26,7 +26,7 @@ ea624586c04c3b0902a8c731a8034976 *R/useShinyjs.R
 85b16a161358f327ce271a70d292c2c7 *build/vignette.rds
 97fa175b4025753afc105a5fe225e803 *inst/doc/overview.R
 ab5f29b1da9f2866725a24cfe21c8944 *inst/doc/overview.Rmd
-d796bebd06099a2dad8958dddcd762e2 *inst/doc/overview.html
+c9de68ee501199211cec47e0250e81a0 *inst/doc/overview.html
 2840b20c1f7c1cee98e794cca5a96117 *inst/examples/basic/DESCRIPTION
 afa8ba6b0ab183c36e32677ea04945d7 *inst/examples/basic/app.R
 c8ce8237330c6d32317049bf7df1f583 *inst/examples/basic/helper-text.R
@@ -43,7 +43,7 @@ ccb89aec450fa0f06c611ec09df51283 *inst/examples/sandbox/helpers.R
 b9fe8d5c3f813c3e24292fef51d3210e *inst/img/demo-basic-v1.png
 7aeb90e1a4844ea9391ec785114be3b1 *inst/srcjs/inject.js
 1f1801cb5788ac9b0eb87624a153e415 *inst/srcjs/input_binding_colour.js
-26d6aaedc0236132bec2b54eeae19c15 *inst/srcjs/shinyjs-default-funcs.js
+a907368e4b732c405652b39511144668 *inst/srcjs/shinyjs-default-funcs.js
 b9ed16c29036b599be3adc1ec43fcf63 *inst/www/shared/colourpicker/css/colourpicker.css
 6c813af0f3cfb2126615f0604ced22ef *inst/www/shared/colourpicker/css/colourpicker.min.css
 baeb238bdffa3e891ef668e95e98cecd *inst/www/shared/colourpicker/js/colourpicker.js
