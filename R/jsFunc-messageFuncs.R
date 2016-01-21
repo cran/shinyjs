@@ -6,24 +6,21 @@
 #' messages, but it is also visible to the user if they choose to inspect the
 #' console.
 #'
-#' @param ... The following parameters are available:
-#' \tabular{ll}{
-#'   \strong{\code{text}}  \tab The message to show.  Can be either simple
-#'                              quoted text or an R variable or expression. \cr
-#' }
+#' @param text The message to show.  Can be either simple text or an R object.
 #' @seealso \code{\link[shinyjs]{useShinyjs}},
 #' \code{\link[shinyjs]{runExample}}
 #' @note \code{shinyjs} must be initialized with a call to \code{useShinyjs()}
 #' in the app's ui.
 #' @examples
 #' if (interactive()) {
-#'   shiny::shinyApp(
-#'     ui = shiny::fluidPage(
+#'   library(shiny)
+#'   shinyApp(
+#'     ui = fluidPage(
 #'       useShinyjs(),  # Set up shinyjs
-#'       shiny::actionButton("btn", "Click me")
+#'       actionButton("btn", "Click me")
 #'     ),
 #'     server = function(input, output) {
-#'       shiny::observeEvent(input$btn, {
+#'       observeEvent(input$btn, {
 #'         # Change the following line for more examples
 #'         info(paste0("The date is ", date()))
 #'       })
@@ -42,7 +39,15 @@ NULL
 
 #' @export
 #' @rdname messageFuncs
-info <- jsFunc
+info <- function(text) {
+  fxn <- "info"
+  params <- as.list(match.call())[-1]
+  jsFuncHelper(fxn, params)
+}
 #' @export
 #' @rdname messageFuncs
-logjs <- jsFunc
+logjs <- function(text) {
+  fxn <- "logjs"
+  params <- as.list(match.call())[-1]
+  jsFuncHelper(fxn, params)
+}

@@ -27,12 +27,14 @@
 #' \code{keydown}, \code{keypress}, \code{keyup}.
 #' @examples
 #' if (interactive()) {
-#'   shiny::shinyApp(
-#'     ui = shiny::fluidPage(
+#'   library(shiny)
+#'
+#'   shinyApp(
+#'     ui = fluidPage(
 #'       useShinyjs(),  # Set up shinyjs
-#'       shiny::p(id = "date", "Click me to see the date"),
-#'       shiny::p(id = "disappear", "Move your mouse here to make the text below disappear"),
-#'       shiny::p(id = "text", "Hello")
+#'       p(id = "date", "Click me to see the date"),
+#'       p(id = "disappear", "Move your mouse here to make the text below disappear"),
+#'       p(id = "text", "Hello")
 #'     ),
 #'     server = function(input, output) {
 #'       onclick("date", info(date()))
@@ -68,13 +70,24 @@ oneventHelper <- function(event, id, expr, add) {
   # get the Shiny session
   session <- getSession()
 
+  # Make sure reset works with namespaces (shiny modules)
+  if (inherits(session, "session_proxy")) {
+    id <- session$ns(id)
+  }
+
   # attach the event callback from JS to call this function to execute the
   # given expression. To support multiple event handlers, each time this
   # is called, a random number is attached to the Shiny input id
-  shinyInputId <- paste0("shinyjs-", id, "-", as.integer(stats::runif(1, 0, 1e9)), "-input-", event)
-  session$sendCustomMessage("onevent", list(event = event,
+  shinyInputId <- sprintf("shinyjs-%s-%s-input-%s",
+                          id, as.integer(stats::runif(1, 0, 1e9)), event)
+  shinyInputIdJs <- shinyInputId
+  if (inherits(session, "session_proxy")) {
+    shinyInputIdJs <- session$ns(shinyInputIdJs)
+  }
+  session$sendCustomMessage("shinyjs-onevent", list(
+                                            event = event,
                                             id = id,
-                                            shinyInputId = shinyInputId,
+                                            shinyInputId = shinyInputIdJs,
                                             add = add))
 
   # save the unevaluated expression so that it won't have a static value

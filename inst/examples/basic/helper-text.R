@@ -6,7 +6,7 @@ getHelperText <- function() {
         "Selecting 'Bigger text' uses", code("shinyjs::addClass()"),
         "to add a CSS class to the webpage that enlarges the font"),
       tags$li(
-        "Typing text inside the 'Name' field uses", code("shinyjs::enable()"),
+        "Typing text inside the 'Name' field uses", code("shinyjs::toggleState()"),
         "to enable the submit button, and similary to disable the button",
         "when there is no input"),
       tags$li(
@@ -15,7 +15,7 @@ getHelperText <- function() {
         "hiding the advanced info section when the link is clicked"),
       tags$li(
         "Clicking 'Update' uses", code("shinyjs::onclick()"), "and",
-        code("shinyjs::text()"), "to update the text in the timestamp when",
+        code("shinyjs::html()"), "to update the HTML in the timestamp when",
         "the link is clicked"),
       tags$li(
         "Clicking 'Submit' uses", code("shinyjs::info()"), "to show a",

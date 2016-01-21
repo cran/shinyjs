@@ -6,16 +6,12 @@
 \alias{messageFuncs}
 \title{Show a message}
 \usage{
-info(...)
+info(text)
 
-logjs(...)
+logjs(text)
 }
 \arguments{
-\item{...}{The following parameters are available:
-\tabular{ll}{
-  \strong{\code{text}}  \tab The message to show.  Can be either simple
-                             quoted text or an R variable or expression. \cr
-}}
+\item{text}{The message to show.  Can be either simple text or an R object.}
 }
 \description{
 \code{info} shows a message to the user as a simple popup.\cr
@@ -30,13 +26,14 @@ in the app's ui.
 }
 \examples{
 if (interactive()) {
-  shiny::shinyApp(
-    ui = shiny::fluidPage(
+  library(shiny)
+  shinyApp(
+    ui = fluidPage(
       useShinyjs(),  # Set up shinyjs
-      shiny::actionButton("btn", "Click me")
+      actionButton("btn", "Click me")
     ),
     server = function(input, output) {
-      shiny::observeEvent(input$btn, {
+      observeEvent(input$btn, {
         # Change the following line for more examples
         info(paste0("The date is ", date()))
       })

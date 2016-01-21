@@ -7,23 +7,20 @@
 \alias{toggleState}
 \title{Enable/disable an input element}
 \usage{
-enable(...)
+enable(id, selector)
 
-disable(...)
+disable(id, selector)
 
-toggleState(...)
+toggleState(id, condition, selector)
 }
 \arguments{
-\item{...}{The following parameters are available:
-\tabular{ll}{
-  \strong{\code{id}}         \tab The id of the input element/Shiny tag \cr
-  \strong{\code{condition}}  \tab An optional argument to \code{toggleState},
-                                  see 'Details' below. \cr
-  \strong{\code{selector}}   \tab JQuery selector of the elements to target.
-                                  Ignored if the \code{id} argument is given.
-                                  For example, to disable all text inputs,
-                                  use \code{selector = "input[type='text']"}\cr
-}}
+\item{id}{The id of the input element/Shiny tag}
+
+\item{selector}{Query selector of the elements to target.  Ignored if the \code{id}
+argument is given. For example, to disable all text inputs, use
+\code{selector = "input[type='text']"}}
+
+\item{condition}{An optional argument to \code{toggleState}, see 'Details' below.}
 }
 \description{
 Enable or disable an input element. A disabled element is not usable and
@@ -44,14 +41,16 @@ in the app's ui.
 }
 \examples{
 if (interactive()) {
-  shiny::shinyApp(
-    ui = shiny::fluidPage(
+  library(shiny)
+
+  shinyApp(
+    ui = fluidPage(
       useShinyjs(),  # Set up shinyjs
-      shiny::actionButton("btn", "Click me"),
-      shiny::textInput("element", "Watch what happens to me")
+      actionButton("btn", "Click me"),
+      textInput("element", "Watch what happens to me")
     ),
     server = function(input, output) {
-      shiny::observeEvent(input$btn, {
+      observeEvent(input$btn, {
         # Change the following line for more examples
         toggleState("element")
       })
@@ -67,22 +66,22 @@ if (interactive()) {
 
   # Similarly, the "element" text input can be changed to many other
   # input tags, such as the following examples
-  shiny::actionButton("element", "I'm a button")
-  shiny::fileInput("element", "Choose a file")
-  shiny::selectInput("element", "I'm a select box", 1:10)
+  actionButton("element", "I'm a button")
+  fileInput("element", "Choose a file")
+  selectInput("element", "I'm a select box", 1:10)
 }
 
 ## toggleState can be given an optional `condition` argument, which
 ## determines if to enable or disable the input
 if (interactive()) {
-  shiny::shinyApp(
-    ui = shiny::fluidPage(
+  shinyApp(
+    ui = fluidPage(
       useShinyjs(),
-      shiny::textInput("text", "Please type at least 3 characters"),
-      shiny::actionButton("element", "Submit")
+      textInput("text", "Please type at least 3 characters"),
+      actionButton("element", "Submit")
     ),
     server = function(input, output) {
-      shiny::observe({
+      observe({
         toggleState(id = "element", condition = nchar(input$text) >= 3)
       })
     }

@@ -32,6 +32,7 @@ Table of contents
     -   [Running JavaScript code on page load](#extendshinyjs-onload)
     -   [Passing arguments from R to JavaScript](#extendshinyjs-args)
     -   [Note about V8 prerequisite](#extendshinyjs-v8)
+-   [FAQ and extra tricks](#faq-tricks)
 
 <h2 id="demos">
 Live demos
@@ -41,8 +42,13 @@ app](http://daattali.com/shiny/shinyjs-demo/) that lets you play around
 with some of the functionality that `shinyjs` makes available.
 
 `shinyjs` also includes a `colourInput` which is an input control that
-allows users to select colours. You can see a [live demo
-here](http://daattali.com/shiny/colourInput/).
+allows users to select colours. [Interactive
+demo](http://daattali.com/shiny/colourInput/).
+
+[Link to presentation slides for
+`shinyjs`](https://docs.google.com/presentation/d/1XyBrIA97ZWIkm8NICAyWHo4J9hj_i2-mJmKEq_CR2A8/edit?usp=sharing)
+from the first Shiny Developer Conference (I have nowhere better to post
+this link).
 
 <h2 id="install">
 Installation
@@ -85,7 +91,7 @@ list of the common functions:
 -   `info` - show a message to the user (using JavaScript's `alert`
     under the hood).
 
--   `text` - change the text/HTML of an element (using JavaScript's
+-   `html` - change the text/HTML of an element (using JavaScript's
     `innerHTML` under the hood).
 
 -   `onclick` - run R code when an element is clicked. Was originally
@@ -391,7 +397,7 @@ To do that, replace `p("Timestamp: ", span(date()))` with
 Now we need to tell Shiny what to do when "Update" is clicked by adding
 this to the server
 
-    shinyjs::onclick("update", shinyjs::text("time", date()))
+    shinyjs::onclick("update", shinyjs::html("time", date()))
 
 **5. Some users may find it hard to read the small text in the app, so
 there should be an option to increase the font size**
@@ -480,7 +486,7 @@ The final code looks like this
         shinyjs::onclick("toggleAdvanced",
                          shinyjs::toggle(id = "advanced", anim = TRUE))    
         
-        shinyjs::onclick("update", shinyjs::text("time", date()))
+        shinyjs::onclick("update", shinyjs::html("time", date()))
         
         observe({
           shinyjs::toggleClass("myapp", "big", input$big)
@@ -689,6 +695,27 @@ If you cannot install the `V8` package on your machine (some very old
 operating systems don't support it), then you can still use
 `extendShinyjs()` but you will have to provide the `functions` argument.
 Read more about this argument with `?shinyjs::extendShinyjs`.
+
+<h2 id="faq-tricks">
+FAQ and extra tricks
+</h2>
+There are several questions that pop up very frequently in my email or
+on StackOverflow about "How do I use shinyjs to do \_\_\_?" Here is a
+list of a few of these common questions with links to a solution that
+could be useful. Note that all of these require using `extendShinyjs()`.
+
+-   [How do I show/hide the `shinydashboard` sidebar
+    programmatically?](http://stackoverflow.com/a/31306707/3943160)
+-   [How do I hide/disable a
+    tab?](http://stackoverflow.com/a/31719425/3943160)
+-   [How do I refresh the
+    page?](http://stackoverflow.com/a/34758024/3943160)
+-   [How do I call a JavaScript function from a different JavaScript
+    library?](https://github.com/timelyportfolio/sweetalertR/issues/1#issuecomment-151685005)
+-   [How do I change the values of a
+    `sliderInput`?](http://stackoverflow.com/a/31066997/3943160)
+-   [How do I call JavaScript code and use the return
+    value?](http://stackoverflow.com/a/34728125/3943160)
 
 Motivation & alternatives using native Shiny
 --------------------------------------------

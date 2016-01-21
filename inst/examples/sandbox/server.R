@@ -16,11 +16,7 @@ shinyServer(function(input, output, session) {
   # and not in a temporary closure environment so that objectes
   # created in an expression can be accessed later)
   sessionEnv <- environment()
-  observe({
-    if (input$submitExpr == 0) {
-      return(NULL)
-    }
-
+  observeEvent(input$submitExpr, {
     shinyjs::hide("error")
 
     tryCatch(
@@ -28,8 +24,8 @@ shinyServer(function(input, output, session) {
         eval(parse(text = input$expr), envir = sessionEnv)
       ),
       error = function(err) {
-        shinyjs::text("errorMsg", as.character(shiny::tags$i(err$message)))
-        shinyjs::show(id = "error", anim = TRUE, animType = "fade")
+        shinyjs::html("errorMsg", as.character(shiny::tags$i(err$message)))
+        shinyjs::show(id = "error", anim = TRUE)
       }
     )
   })

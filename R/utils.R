@@ -6,12 +6,14 @@ errMsg <- function(x) {
 # get the shiny session object
 getSession <- function() {
   session <- shiny::getDefaultReactiveDomain()
+
   if (is.null(session)) {
     errMsg(paste(
       "could not find the Shiny session object. This usually happens when a",
       "shinyjs function is called from a context that wasn't set up by a Shiny session."
     ))
   }
+
   session
 }
 
@@ -19,7 +21,7 @@ getSession <- function() {
 setupJS <- function(jsFuncs, script, text, ...) {
   # add a shiny message handler binding for each supported method
   tpl <- paste0(
-    "Shiny.addCustomMessageHandler('%s', function(params) {",
+    "Shiny.addCustomMessageHandler('shinyjs-%s', function(params) {",
     " shinyjs.debugMessage('shinyjs: calling function \"%s\" with parameters:');",
     " shinyjs.debugMessage(params);",
     " shinyjs.%s(params);",
@@ -30,7 +32,7 @@ setupJS <- function(jsFuncs, script, text, ...) {
   controllers <- paste(controllers, collapse = "\n")
 
   # ensure the same scripts don't get added to the HTML twice
-  shinyjsContent <- 
+  shinyjsContent <-
     shiny::singleton(
       insertHead(
         # add the message handlers
@@ -42,7 +44,7 @@ setupJS <- function(jsFuncs, script, text, ...) {
         ...
       )
     )
-  
+
   # inject the content via JavaScript if necessary
   if (!is.null(.globals$inject) && .globals$inject) {
     shinyjsContent <- as.character(shinyjsContent)

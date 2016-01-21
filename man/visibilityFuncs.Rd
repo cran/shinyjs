@@ -7,31 +7,27 @@
 \alias{visibilityFuncs}
 \title{Display/hide an element}
 \usage{
-show(...)
+show(id, anim, animType, time, selector)
 
-hide(...)
+hide(id, anim, animType, time, selector)
 
-toggle(...)
+toggle(id, anim, animType, time, selector, condition)
 }
 \arguments{
-\item{...}{The following parameters are available:
-\tabular{ll}{
-  \strong{\code{id}}         \tab The id of the element/Shiny tag \cr
-  \strong{\code{anim}}       \tab If \code{TRUE} then animate the behaviour
-                                  (default: \code{FALSE}) \cr
-  \strong{\code{animType}}   \tab The type of animation to use,
-                                  either \code{"slide"} or \code{"fade"}
-                                  (default: \code{"slide"}) \cr
-  \strong{\code{time}}       \tab The number of seconds to make the
-                                  animation last
-                                  (default: \code{0.5}) \cr
-  \strong{\code{selector}}   \tab JQuery selector of the elements to show/hide.
-                                  Ignored if the \code{id} argument is given.
-                                  For example, to select all span elements with
-                                  class x, use \code{selector = "span.x"}\cr
-  \strong{\code{condition}}  \tab An optional argument to \code{toggle}, see
-                                  'Details' below. \cr
-}}
+\item{id}{The id of the element/Shiny tag}
+
+\item{anim}{If \code{TRUE} then animate the behaviour (default: \code{FALSE})}
+
+\item{animType}{The type of animation to use, either \code{"slide"} or \code{"fade"}
+(default: \code{"slide"})}
+
+\item{time}{The number of seconds to make the animation last (default: \code{0.5})}
+
+\item{selector}{JQuery selector of the elements to show/hide. Ignored if the
+\code{id} argument is given. For example, to select all span elements with
+class x, use \code{selector = "span.x"}}
+
+\item{condition}{An optional argument to \code{toggle}, see 'Details' below.}
 }
 \description{
 Display or hide an HTML element.\cr\cr
@@ -54,14 +50,16 @@ in the app's ui.
 }
 \examples{
 if (interactive()) {
-  shiny::shinyApp(
-    ui = shiny::fluidPage(
+  library(shiny)
+
+  shinyApp(
+    ui = fluidPage(
       useShinyjs(),  # Set up shinyjs
-      shiny::actionButton("btn", "Click me"),
-      shiny::p(id = "element", "Watch what happens to me")
+      actionButton("btn", "Click me"),
+      p(id = "element", "Watch what happens to me")
     ),
     server = function(input, output) {
-      shiny::observeEvent(input$btn, {
+      observeEvent(input$btn, {
         # Change the following line for more examples
         toggle("element")
       })
@@ -85,14 +83,14 @@ if (interactive()) {
 ## toggle can be given an optional `condition` argument, which
 ## determines if to show or hide the element
 if (interactive()) {
-  shiny::shinyApp(
-    ui = shiny::fluidPage(
+  shinyApp(
+    ui = fluidPage(
       useShinyjs(),
-      shiny::checkboxInput("checkbox", "Show the text", TRUE),
-      shiny::p(id = "element", "Watch what happens to me")
+      checkboxInput("checkbox", "Show the text", TRUE),
+      p(id = "element", "Watch what happens to me")
     ),
     server = function(input, output) {
-      shiny::observe({
+      observe({
         toggle(id = "element", condition = input$checkbox)
       })
     }

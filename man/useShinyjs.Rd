@@ -8,7 +8,7 @@ useShinyjs(rmd = FALSE, debug = FALSE, html = FALSE)
 }
 \arguments{
 \item{rmd}{Set this to \code{TRUE} only if you are using \code{shinyjs} inside an
-interactive R markdown document. If using this option, view the 
+interactive R markdown document. If using this option, view the
 \href{https://github.com/daattali/shinyjs}{README} online to learn how to
 use shinyjs in R markdown documents.}
 
@@ -18,7 +18,7 @@ to get more information about what is going on.}
 
 \item{html}{Set this to \code{TRUE} only if you are using \code{shinyjs} in a Shiny
 app that builds the entire user interface with a custom HTML file. If using this
-option, view the \href{https://github.com/daattali/shinyjs}{README} online to learn 
+option, view the \href{https://github.com/daattali/shinyjs}{README} online to learn
 how to use shinyjs in these apps.}
 }
 \value{
@@ -32,17 +32,16 @@ You can call \code{useShinyjs()} from anywhere inside the UI.
 }
 \examples{
 if (interactive()) {
-  shiny::shinyApp(
-    ui = shiny::fluidPage(
+  library(shiny)
+
+  shinyApp(
+    ui = fluidPage(
       useShinyjs(),  # Set up shinyjs
-      shiny::actionButton("btn", "Click me"),
-      shiny::p(id = "element", "Watch what happens to me")
+      actionButton("btn", "Click me"),
+      p(id = "element", "Watch what happens to me")
     ),
     server = function(input, output) {
-      shiny::observe({
-        if (input$btn == 0) {
-          return(NULL)
-        }
+      observeEvent(input$btn, {
         # Run a simply shinyjs function
         toggle("element")
       })
