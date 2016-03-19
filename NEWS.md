@@ -1,3 +1,15 @@
+# shinyjs 0.5.0
+
+2016-03-19
+
+- Added an awesome colour picker gadget and addin.  Use `colourPicker()` to open a gadget that lets you pick colours, or choose *Colour Picker* from the *Addins* menu to run it.
+
+# shinyjs 0.4.1
+
+2016-01-31
+
+- `html()` function: don't attempt to change innerHTML if the element does not exist
+
 # shinyjs 0.4.0
 
 2016-01-16

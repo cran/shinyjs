@@ -1,3 +1,6 @@
+NOTE: During February/March 2016 I will be extremely busy trying to write my thesis, so please do not send me private emails asking for personal help. If you need help, I recommend you ask on StackOverflow. Help me graduate :)
+==================================================================================================================================================================================================================================
+
 shinyjs - Perform common JavaScript operations in Shiny apps using plain R code
 ===============================================================================
 
@@ -13,10 +16,14 @@ original value, delaying code execution by a few seconds, and many more
 useful functions. `shinyjs` can also be used to easily run your own
 custom JavaScript functions from R.
 
+As an extra perk, `shinyjs` also comes with a `colourInput()` Shiny
+widget, and with a colour picker gadget+RStudio addin that let you
+choose colours easily.
+
 Table of contents
 =================
 
--   [Live demos](#demos)
+-   [Demos](#demos)
 -   [Installation](#install)
 -   [Overview of main functions](#overview-main)
 -   [How to use](#usage)
@@ -35,7 +42,7 @@ Table of contents
 -   [FAQ and extra tricks](#faq-tricks)
 
 <h2 id="demos">
-Live demos
+Demos
 </h2>
 You can [check out a demo Shiny
 app](http://daattali.com/shiny/shinyjs-demo/) that lets you play around
@@ -45,10 +52,12 @@ with some of the functionality that `shinyjs` makes available.
 allows users to select colours. [Interactive
 demo](http://daattali.com/shiny/colourInput/).
 
-[Link to presentation slides for
-`shinyjs`](https://docs.google.com/presentation/d/1XyBrIA97ZWIkm8NICAyWHo4J9hj_i2-mJmKEq_CR2A8/edit?usp=sharing)
-from the first Shiny Developer Conference (I have nowhere better to post
-this link).
+You can also [watch a short
+GIF](https://raw.githubusercontent.com/daattali/shinyjs/master/inst/img/colourPickerGadget.gif)
+showcasing the colour picker addin+gadget.
+
+[Presentation slides for `shinyjs` talk](http://bit.ly/shinyjs-slides)
+from the 2016 Shiny Developer Conference.
 
 <h2 id="install">
 Installation
@@ -119,6 +128,9 @@ list of the common functions:
 
 -   `colourInput` and `updateColourInput` - input widget that allows
     users to select colours.
+
+-   `colourPicker` - opens an RStudio gadget that lets you select
+    colours (you can also call it from the RStudio *Addins* menu).
 
 [Check out the demo Shiny app](http://daattali.com/shiny/shinyjs-demo/)
 to see some of these in action, or install `shinyjs` and run
