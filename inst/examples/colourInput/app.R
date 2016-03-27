@@ -53,6 +53,20 @@ shinyApp(
 
     div(
       class = "section",
+      div(class = "title", "Return R colour name"),
+      div(class = "output", "Selected colour:",
+          textOutput("valueName", inline = TRUE)),
+      colourInput("colName", NULL, "green", returnName = TRUE, palette = "limited"),
+      tags$pre(HTML(paste0(
+        'colourInput(<br>',
+        '  "col", NULL, "green",<br>',
+        '  returnName = TRUE, <br>',
+        '  palette = "limited")'
+      )))
+    ),
+
+    div(
+      class = "section",
       div(class = "title", "Only show background"),
       div(class = "output", "Selected colour:",
           textOutput("valueBg", inline = TRUE)),
@@ -61,19 +75,6 @@ shinyApp(
         'colourInput(<br>',
         '  "col", NULL, "red",<br>',
         '  showColour = "background")'
-      )))
-    ),
-
-    div(
-      class = "section",
-      div(class = "title", "Only show text"),
-      div(class = "output", "Selected colour:",
-          textOutput("valueText", inline = TRUE)),
-      colourInput("colText", NULL, "#ABC123", showColour = "text"),
-      tags$pre(HTML(paste0(
-        'colourInput(<br>',
-        '  "col", NULL, "#ABC123",<br>',
-        '  showColour = "text")'
       )))
     ),
 
@@ -103,6 +104,7 @@ shinyApp(
       shiny::selectInput("palette", "Colour palette",
                          c("square", "limited")),
       checkboxInput("allowTransparent", "Allow transparent", FALSE),
+      checkboxInput("returnName", "Return R colour name", FALSE),
       actionButton("update", "Update")
     ),
 
@@ -137,10 +139,10 @@ shinyApp(
     # show the selected colours
     output$valueSimple      <- renderText(input$colSimple)
     output$valueBg          <- renderText(input$colBg)
-    output$valueText        <- renderText(input$colText)
     output$valueTransparent <- renderText(input$colTransparent)
     output$valueUpdate      <- renderText(input$colUpdate)
     output$valueLimited     <- renderText(input$colLimited)
+    output$valueName        <- renderText(input$colName)
     output$valueCustom      <- renderText(input$colCustom)
 
     # allow user to update an input control
@@ -148,7 +150,8 @@ shinyApp(
       updateColourInput(session, "colUpdate",
                         value = input$text, showColour = input$showColour,
                         palette = input$palette,
-                        allowTransparent = input$allowTransparent)
+                        allowTransparent = input$allowTransparent,
+                        returnName = input$returnName)
     })
 
     # show plot based on colours selected

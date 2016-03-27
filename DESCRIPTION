@@ -1,7 +1,7 @@
 Package: shinyjs
 Title: Perform Common JavaScript Operations in Shiny Apps using Plain R
         Code
-Version: 0.5.0
+Version: 0.5.2
 Authors@R: person("Dean", "Attali", email = "daattali@gmail.com",
     role = c("aut", "cre"))
 Description: Perform common JavaScript operations in Shiny applications without
@@ -23,8 +23,8 @@ LazyData: true
 VignetteBuilder: knitr
 RoxygenNote: 5.0.1
 NeedsCompilation: no
-Packaged: 2016-03-19 12:48:47 UTC; Dean
+Packaged: 2016-03-26 22:23:59 UTC; Dean
 Author: Dean Attali [aut, cre]
 Maintainer: Dean Attali <daattali@gmail.com>
 Repository: CRAN
-Date/Publication: 2016-03-19 14:33:16
+Date/Publication: 2016-03-27 18:22:24
