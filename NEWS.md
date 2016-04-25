@@ -1,3 +1,16 @@
+# shinyjs 0.6
+
+2016-04-24
+
+- `info()` fuction: don't include surrounding quotations if not necessary (#59)
+- added documentation for how to use `shinyjs` in HTML templates 
+
+# shinyjs 0.5.3
+
+2016-04-05
+
+- Fixed bug with `extendShinyjs()` where it didn't work when using a script and didn't have `V8` installed (#64)
+
 # shinyjs 0.5.2
 
 2016-03-25
@@ -316,3 +329,4 @@ This has been a pending change for a while but I was hesitant to use it because
 I still don't *fully* understand the call stack and I'm not 100% sure this will
 always be correct. But it does make sense to me and it seems to work so I'll
 give it a go.
+
