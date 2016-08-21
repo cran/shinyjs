@@ -1,26 +1,25 @@
-shinyjs - Perform common JavaScript operations in Shiny apps using plain R code
-===============================================================================
+shinyjs - Easily improve the user interaction and user experience in your Shiny apps in seconds
+===============================================================================================
 
 [![Build
 Status](https://travis-ci.org/daattali/shinyjs.svg?branch=master)](https://travis-ci.org/daattali/shinyjs)
 [![CRAN
 version](http://www.r-pkg.org/badges/version/shinyjs)](https://cran.r-project.org/package=shinyjs)
 
+> *Copyright 2016 [Dean Attali](http://deanattali.com). Licensed under
+> the MIT license.*
+
 `shinyjs` lets you perform common useful JavaScript operations in Shiny
 applications without having to know any JavaScript. Examples include:
 hiding an element, disabling an input, resetting an input back to its
 original value, delaying code execution by a few seconds, and many more
-useful functions. `shinyjs` can also be used to easily run your own
+useful functions. `shinyjs` can also be used to easily call your own
 custom JavaScript functions from R.
-
-As an extra perk, `shinyjs` also comes with a `colourInput()` Shiny
-widget, and with a colour picker gadget+RStudio addin that let you
-choose colours easily.
 
 Table of contents
 =================
 
--   [Demos](#demos)
+-   [Demos and tutorials](#demos)
 -   [Installation](#install)
 -   [Overview of main functions](#overview-main)
 -   [How to use](#usage)
@@ -40,22 +39,18 @@ Table of contents
 -   [Colour Picker input & addin](#colourpicker)
 
 <h2 id="demos">
-Live demos
+Demos and tutorials
 </h2>
-You can [check out a demo Shiny
-app](http://daattali.com/shiny/shinyjs-demo/) that lets you play around
-with some of the functionality that `shinyjs` makes available.
-
-`shinyjs` also includes a `colourInput` which is an input control that
-allows users to select colours. [Interactive
-demo](http://daattali.com/shiny/colourInput/).
-
-You can also [watch a short
-GIF](https://raw.githubusercontent.com/daattali/shinyjs/master/inst/img/colourPickerGadget.gif)
-showcasing the colour picker addin+gadget.
-
-[Presentation slides for `shinyjs` talk](http://bit.ly/shinyjs-slides)
-from the 2016 Shiny Developer Conference.
+-   [Demo Shiny app](http://daattali.com/shiny/shinyjs-demo/) that lets
+    you play around with some of the functionality in `shinyjs`.
+-   [Video of my shinyjs
+    talk](http://deanattali.com/shinyjs-shinydevcon-2016/) (30 min) and
+    the associated [presentation slides](http://bit.ly/shinyjs-slides)
+    from the 2016 Shiny Developer Conference.
+-   [Video of my shinyjs talk](http://deanattali.com/shinyjs-user-2016/)
+    (5 min) and the associated [presentation
+    slides](http://bit.ly/shinyjs-slides-useR2016) from the 2016
+    useR Conference.
 
 <h2 id="install">
 Installation
@@ -123,12 +118,6 @@ list of the common functions:
     and use `shinyjs` to call them as if they were regular R code. More
     information is available in the section "Calling your own JavaScript
     functions from R".
-
--   `colourInput` and `updateColourInput` - input widget that allows
-    users to select colours.
-
--   `colourPicker` - opens an RStudio gadget that lets you select
-    colours (you can also call it from the RStudio *Addins* menu).
 
 [Check out the demo Shiny app](http://daattali.com/shiny/shinyjs-demo/)
 to see some of these in action, or install `shinyjs` and run
@@ -736,6 +725,11 @@ could be useful. Note that all of these require using `extendShinyjs()`.
 <h2 id="colourpicker">
 Colour Picker input & addin
 </h2>
+**NOTE: As of August 2016, the colour picker functions are deprecated
+and have moved into a separate package
+[`colourpicker`](https://github.com/daattali/colourpicker). Please use
+the `colourpicker` package instead of `shinyjs` in the future.**
+
 `shinyjs` has a `colourInput()` function that lets you add a colour
 picker widget to Shiny apps. There is also a colour picker RStudio addin
 (accessed through the *Addins* menu) and a gadget (accessed with the
