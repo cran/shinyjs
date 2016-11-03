@@ -1,4 +1,4 @@
-// shinyjs 0.7 by Dean Attali
+// shinyjs 0.8 by Dean Attali
 // Perform common JavaScript operations in Shiny apps using plain R code
 
 shinyjs = function() {
@@ -365,6 +365,10 @@ shinyjs = function() {
           input = input.children("textarea");
           inputType = "TextArea";
         }
+        else if (input.find("input[type='file']").length > 0) {
+          input = input.find("input[type='file']");
+          inputType = "File"
+        }
         // if none of the above, no supported Shiny input was found
         else {
           foundInput = false;
@@ -432,19 +436,32 @@ shinyjs = function() {
     var attrName = "data-shinyjs-" + params.event;
 
     // if this is the first event handler of this event type we attach to this
-    // element, initialize the data attribute and add the  event handler
+    // element, initialize the data attribute and add the event handler
     var first = !(el[0].hasAttribute(attrName));
     if (first) {
       el.attr(attrName, JSON.stringify(Object()));
 
-      el[params.event](function() {
+      el[params.event](function(event) {
+        // Store a subset of the event properties (many are non-serializeable)
+        var props = ['altKey', 'button', 'buttons', 'clientX', 'clienty',
+          'ctrlKey', 'pageX', 'pageY', 'screenX', 'screenY', 'shiftKey',
+          'which', 'charCode', 'key', 'keyCode'];
+        var eventSimple = {};
+        $.each(props, function(idx, prop) {
+          if (prop in event) {
+            eventSimple[[prop]] = event[[prop]];
+          }
+        });
+        eventSimple.shinyjsRandom = Math.random();
+
         var oldValues = JSON.parse(el.attr(attrName));
         var newValues = Object();
         $.each(oldValues, function(key, value) {
           var newValue = value + 1;
           newValues[key] = newValue;
-          Shiny.onInputChange(key, newValue);
+          Shiny.onInputChange(key, eventSimple);
         });
+
         el.attr(attrName, JSON.stringify(newValues));
       });
     }
@@ -468,7 +485,7 @@ shinyjs = function() {
     // write a message to the console for debugging purposes if debug mode is on
     debugMessage : function(text) {
       if (shinyjs.debug) {
-        console.log(text);
+        console.info(text);
       }
     },
 
@@ -639,7 +656,7 @@ shinyjs = function() {
       });
     },
 
-    info : function (params) {
+    alert : function (params) {
       var defaultParams = {
         text : null
       }
@@ -732,7 +749,17 @@ shinyjs = function() {
         var value = resettable.attr('data-shinyjs-resettable-value');
         var id = resettable.attr('data-shinyjs-resettable-id');
         if (id !== undefined) {
-          messages[id] = { 'type' : type, 'value' : value };
+          // file inputs need to be reset manually since shiny doesn't have an
+          // update function for them
+          if (type == "File") {
+            id = "#" + id;
+            $(id).val('');
+            $(id + "_progress").css("visibility", "hidden");
+            $(id + "_progress").find(".progress-bar").css("width", "0");
+            $(id).closest(".input-group").find("input[type='text']").val('');
+          } else {
+            messages[id] = { 'type' : type, 'value' : value };
+          }
         }
       }
 
