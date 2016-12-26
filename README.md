@@ -1,13 +1,13 @@
 shinyjs - Easily improve the user interaction and user experience in your Shiny apps in seconds
 ===============================================================================================
 
+[![Donate](http://i.imgur.com/vCIGFrH.png)](https://www.paypal.me/daattali)
 [![Build
 Status](https://travis-ci.org/daattali/shinyjs.svg?branch=master)](https://travis-ci.org/daattali/shinyjs)
 [![CRAN
 version](http://www.r-pkg.org/badges/version/shinyjs)](https://cran.r-project.org/package=shinyjs)
 
-> *Copyright 2016 [Dean Attali](http://deanattali.com). Licensed under
-> the MIT license.*
+> *Copyright 2016 [Dean Attali](http://deanattali.com)*
 
 `shinyjs` lets you perform common useful JavaScript operations in Shiny
 apps that will greatly improve your apps without having to know any
@@ -19,12 +19,21 @@ seconds, and many more useful functions for both the end user and the
 developer. `shinyjs` can also be used to easily call your own custom
 JavaScript functions from R.
 
+**shinyjs was developed for non-commerical purposes. For commerical
+usage, please [contact me](http://deanattali.com/aboutme#contact). If
+you find shinyjs useful, please consider supporting its development!**
+
+<p align="center">
+<a href="https://www.paypal.me/daattali">
+<img src="https://www.paypalobjects.com/en_US/i/btn/btn_donate_LG.gif" />
+</a>
+</p>
 Table of contents
 =================
 
 -   [Demos and tutorials](#demos)
--   [Installation](#install)
 -   [Overview of main functions](#overview-main)
+-   [Installation](#install)
 -   [How to use](#usage)
 -   [Basic use case - complete working example](#usecase)
 -   [Calling your own JavaScript functions from R](#extendshinyjs)
@@ -35,8 +44,8 @@ Table of contents
 <h2 id="demos">
 Demos and tutorials
 </h2>
--   [Demo Shiny app](http://daattali.com/shiny/shinyjs-demo/) that lets
-    you play around with some of the functionality in `shinyjs`.
+-   [Demo Shiny app](http://deanattali.com/shinyjs/demo) that lets you
+    play around with some of the functionality in `shinyjs`.
 -   [Video of my shinyjs
     talk](http://deanattali.com/shinyjs-shinydevcon-2016/) (30 min) and
     the corresponding [presentation
@@ -46,18 +55,6 @@ Demos and tutorials
     (5 min) and the corresponding [presentation
     slides](http://bit.ly/shinyjs-slides-useR2016) from the 2016
     useR Conference.
-
-<h2 id="install">
-Installation
-</h2>
-To install the stable CRAN version:
-
-    install.packages("shinyjs")
-
-To install the latest development version from GitHub:
-
-    install.packages("devtools")
-    devtools::install_github("daattali/shinyjs")
 
 <h2 id="overview-main">
 Overview of main functions
@@ -157,10 +154,21 @@ first call `useShinyjs()` anywhere in the app's UI.**
 </tbody>
 </table>
 
-[Check out the shinyjs demo
-app](http://daattali.com/shiny/shinyjs-demo/) to see some of these in
-action, or install `shinyjs` and run `shinyjs::runExample()` to see more
-demos.
+[Check out the shinyjs demo app](http://deanattali.com/shinyjs/demo) to
+see some of these in action, or install `shinyjs` and run
+`shinyjs::runExample()` to see more demos.
+
+<h2 id="install">
+Installation
+</h2>
+To install the stable CRAN version:
+
+    install.packages("shinyjs")
+
+To install the latest development version from GitHub:
+
+    install.packages("devtools")
+    devtools::install_github("daattali/shinyjs")
 
 <h2 id="usage">
 How to use

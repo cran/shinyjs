@@ -1,4 +1,4 @@
-// shinyjs 0.8 by Dean Attali
+// shinyjs 0.9 by Dean Attali
 // Perform common JavaScript operations in Shiny apps using plain R code
 
 shinyjs = function() {
@@ -233,7 +233,7 @@ shinyjs = function() {
 
       // enable/disable the container as well as all individual inputs inside
       // (this is needed for grouped inputs such as radio and checkbox groups)
-      var toadd = $el.find("input, button");
+      var toadd = $el.find("input, button, textarea");
       $el = $($el.toArray().concat(toadd.toArray()));
       $el.attr('disabled', (method == "disable"));
       $el.prop('disabled', (method == "disable"));
@@ -262,9 +262,12 @@ shinyjs = function() {
   // helper function to get the initial date from a bootstrap date element
   // if there is no initial date, return the current date
   var _getInputDate = function(el) {
-    if (el[0].hasAttribute('data-initial-date') &&
-        el.attr('data-initial-date') != "") {
-      return el.attr('data-initial-date');
+    if (el[0].hasAttribute('data-initial-date')) {
+      if (el.attr('data-initial-date') === "") {
+        return 'NA';
+      } else {
+        return el.attr('data-initial-date');
+      }
     }
     var today = new Date();
     var yyyy = today.getFullYear().toString();
@@ -785,3 +788,34 @@ shinyjs = function() {
 
 // Initialize shinyjs on the JS side
 $(function() { shinyjs.initShinyjs(); });
+
+// ShinySenderQueue code taken from Joe Cheng
+// https://github.com/rstudio/shiny/issues/1476
+function ShinySenderQueue() {
+  this.readyToSend = true;
+  this.queue = [];
+  this.timer = null;
+}
+ShinySenderQueue.prototype.send = function(name, value) {
+  var self = this;
+  function go() {
+    self.timer = null;
+    if (self.queue.length) {
+      var msg = self.queue.shift();
+      Shiny.onInputChange(msg.name, msg.value);
+      self.timer = setTimeout(go, 0);
+    } else {
+      self.readyToSend = true;
+    }
+  }
+  if (this.readyToSend) {
+    this.readyToSend = false;
+    Shiny.onInputChange(name, value);
+    this.timer = setTimeout(go, 0);
+  } else {
+    this.queue.push({name: name, value: value});
+    if (!this.timer) {
+      this.timer = setTimeout(go, 0);
+    }
+  }
+};

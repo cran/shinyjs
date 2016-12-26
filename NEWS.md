@@ -1,3 +1,16 @@
+# shinyjs 0.9
+
+2016-12-26
+
+- added support for shinyAce editor as the input for `runcodeUI()` (#93)
+- `showLog()` no longer needs to be specified in `useShinyjs()`, and it can be used by just calling it in the server code once (#105)
+- fixed bug where `showLog()` would only show the last message if multiple messages were printed in succession (#99)
+- fixed bug where date inputs could not be reset to empty (#100)
+- fixed textArea inputs not getting disabled when disabling a parent element
+- add `showElement()`/`hideElement()`/`toggleElement()` and `addCssClass` etc functions as synonyms for functions that are masked by S4 (compromise for #81)
+- fixed broken `runExample("sandbox")` example
+- added a website for shinyjs: http://deanattali.com/shinyjs
+
 # shinyjs 0.8
 
 2016-11-03

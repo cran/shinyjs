@@ -38,7 +38,7 @@ shinyUI(fluidPage(
   fluidRow(
   column(6, wellPanel(
      h1("Write an R expression", class = "section-title"),
-     runcodeUI(value = as.character(examples[1])),
+     shinyjs::runcodeUI(code = as.character(examples[1])),
      shiny::hr(),
      h1("Sandbox area", class = "section-title"),
      p(id = "test", "I'm an HTML element with id \"test\""),
@@ -51,7 +51,7 @@ shinyUI(fluidPage(
   column(6, wellPanel(
     h3("What is shinyjs?", class = "section-title"),
     p(
-      strong(a("shinyjs", href = "https://github.com/daattali/shinyjs",
+      strong(a("shinyjs", href = "http://deanattali.com/shinyjs/",
                target = "_blank")),
       span("lets you improve the user experience in your Shiny apps using very simple functions.")),
     p("You can",
