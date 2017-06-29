@@ -4,7 +4,7 @@
 
 <head>
 
-<meta charset="utf-8">
+<meta charset="utf-8" />
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <meta name="generator" content="pandoc" />
 
@@ -12,7 +12,7 @@
 
 <meta name="author" content="Dean Attali" />
 
-<meta name="date" content="2016-12-26" />
+<meta name="date" content="2017-06-29" />
 
 <title>Package shinyjs</title>
 
@@ -21,7 +21,7 @@
 
 
 
-<link href="data:text/css;charset=utf-8,body%7Bbackground%2Dcolor%3A%23fff%3Bmargin%3A1em%20auto%3Bmax%2Dwidth%3A700px%3Boverflow%3Avisible%3Bpadding%2Dleft%3A2em%3Bpadding%2Dright%3A2em%3Bfont%2Dfamily%3A%22Open%20Sans%22%2C%20%22Helvetica%20Neue%22%2C%20Helvetica%2C%20Arial%2C%20sans%2Dserif%3Bfont%2Dsize%3A14px%3Bline%2Dheight%3A1%2E35%7D%23header%7Btext%2Dalign%3Acenter%7D%23TOC%7Bclear%3Aboth%3Bmargin%3A0%200%2010px%2010px%3Bpadding%3A4px%3Bwidth%3A400px%3Bborder%3A1px%20solid%20%23CCCCCC%3Bborder%2Dradius%3A5px%3Bbackground%2Dcolor%3A%23f6f6f6%3Bfont%2Dsize%3A13px%3Bline%2Dheight%3A1%2E3%7D%23TOC%20%2Etoctitle%7Bfont%2Dweight%3Abold%3Bfont%2Dsize%3A15px%3Bmargin%2Dleft%3A5px%7D%23TOC%20ul%7Bpadding%2Dleft%3A40px%3Bmargin%2Dleft%3A%2D1%2E5em%3Bmargin%2Dtop%3A5px%3Bmargin%2Dbottom%3A5px%7D%23TOC%20ul%20ul%7Bmargin%2Dleft%3A%2D2em%7D%23TOC%20li%7Bline%2Dheight%3A16px%7Dtable%7Bmargin%3A1em%20auto%3Bborder%2Dwidth%3A1px%3Bborder%2Dcolor%3A%23DDDDDD%3Bborder%2Dstyle%3Aoutset%3Bborder%2Dcollapse%3Acollapse%7Dtable%20th%7Bborder%2Dwidth%3A2px%3Bpadding%3A5px%3Bborder%2Dstyle%3Ainset%7Dtable%20td%7Bborder%2Dwidth%3A1px%3Bborder%2Dstyle%3Ainset%3Bline%2Dheight%3A18px%3Bpadding%3A5px%205px%7Dtable%2C%20table%20th%2C%20table%20td%7Bborder%2Dleft%2Dstyle%3Anone%3Bborder%2Dright%2Dstyle%3Anone%7Dtable%20thead%2C%20table%20tr%2Eeven%7Bbackground%2Dcolor%3A%23f7f7f7%7Dp%7Bmargin%3A0%2E5em%200%7Dblockquote%7Bbackground%2Dcolor%3A%23f6f6f6%3Bpadding%3A0%2E25em%200%2E75em%7Dhr%7Bborder%2Dstyle%3Asolid%3Bborder%3Anone%3Bborder%2Dtop%3A1px%20solid%20%23777%3Bmargin%3A28px%200%7Ddl%7Bmargin%2Dleft%3A0%7Ddl%20dd%7Bmargin%2Dbottom%3A13px%3Bmargin%2Dleft%3A13px%7Ddl%20dt%7Bfont%2Dweight%3Abold%7Dul%7Bmargin%2Dtop%3A0%7Dul%20li%7Blist%2Dstyle%3Acircle%20outside%7Dul%20ul%7Bmargin%2Dbottom%3A0%7Dpre%2C%20code%7Bbackground%2Dcolor%3A%23f7f7f7%3Bborder%2Dradius%3A3px%3Bcolor%3A%23333%3Bwhite%2Dspace%3Apre%2Dwrap%7Dpre%7Bborder%2Dradius%3A3px%3Bmargin%3A5px%200px%2010px%200px%3Bpadding%3A10px%7Dpre%3Anot%28%5Bclass%5D%29%7Bbackground%2Dcolor%3A%23f7f7f7%7Dcode%7Bfont%2Dfamily%3AConsolas%2C%20Monaco%2C%20%27Courier%20New%27%2C%20monospace%3Bfont%2Dsize%3A85%25%7Dp%20%3E%20code%2C%20li%20%3E%20code%7Bpadding%3A2px%200px%7Ddiv%2Efigure%7Btext%2Dalign%3Acenter%7Dimg%7Bbackground%2Dcolor%3A%23FFFFFF%3Bpadding%3A2px%3Bborder%3A1px%20solid%20%23DDDDDD%3Bborder%2Dradius%3A3px%3Bborder%3A1px%20solid%20%23CCCCCC%3Bmargin%3A0%205px%7Dh1%7Bmargin%2Dtop%3A0%3Bfont%2Dsize%3A35px%3Bline%2Dheight%3A40px%7Dh2%7Bborder%2Dbottom%3A4px%20solid%20%23f7f7f7%3Bpadding%2Dtop%3A10px%3Bpadding%2Dbottom%3A2px%3Bfont%2Dsize%3A145%25%7Dh3%7Bborder%2Dbottom%3A2px%20solid%20%23f7f7f7%3Bpadding%2Dtop%3A10px%3Bfont%2Dsize%3A120%25%7Dh4%7Bborder%2Dbottom%3A1px%20solid%20%23f7f7f7%3Bmargin%2Dleft%3A8px%3Bfont%2Dsize%3A105%25%7Dh5%2C%20h6%7Bborder%2Dbottom%3A1px%20solid%20%23ccc%3Bfont%2Dsize%3A105%25%7Da%7Bcolor%3A%230033dd%3Btext%2Ddecoration%3Anone%7Da%3Ahover%7Bcolor%3A%236666ff%7Da%3Avisited%7Bcolor%3A%23800080%7Da%3Avisited%3Ahover%7Bcolor%3A%23BB00BB%7Da%5Bhref%5E%3D%22http%3A%22%5D%7Btext%2Ddecoration%3Aunderline%7Da%5Bhref%5E%3D%22https%3A%22%5D%7Btext%2Ddecoration%3Aunderline%7Dcode%20%3E%20span%2Ekw%7Bcolor%3A%23555%3Bfont%2Dweight%3Abold%7Dcode%20%3E%20span%2Edt%7Bcolor%3A%23902000%7Dcode%20%3E%20span%2Edv%7Bcolor%3A%2340a070%7Dcode%20%3E%20span%2Ebn%7Bcolor%3A%23d14%7Dcode%20%3E%20span%2Efl%7Bcolor%3A%23d14%7Dcode%20%3E%20span%2Ech%7Bcolor%3A%23d14%7Dcode%20%3E%20span%2Est%7Bcolor%3A%23d14%7Dcode%20%3E%20span%2Eco%7Bcolor%3A%23888888%3Bfont%2Dstyle%3Aitalic%7Dcode%20%3E%20span%2Eot%7Bcolor%3A%23007020%7Dcode%20%3E%20span%2Eal%7Bcolor%3A%23ff0000%3Bfont%2Dweight%3Abold%7Dcode%20%3E%20span%2Efu%7Bcolor%3A%23900%3Bfont%2Dweight%3Abold%7Dcode%20%3E%20span%2Eer%7Bcolor%3A%23a61717%3Bbackground%2Dcolor%3A%23e3d2d2%7D" rel="stylesheet" type="text/css" />
+<link href="data:text/css;charset=utf-8,body%20%7B%0Abackground%2Dcolor%3A%20%23fff%3B%0Amargin%3A%201em%20auto%3B%0Amax%2Dwidth%3A%20700px%3B%0Aoverflow%3A%20visible%3B%0Apadding%2Dleft%3A%202em%3B%0Apadding%2Dright%3A%202em%3B%0Afont%2Dfamily%3A%20%22Open%20Sans%22%2C%20%22Helvetica%20Neue%22%2C%20Helvetica%2C%20Arial%2C%20sans%2Dserif%3B%0Afont%2Dsize%3A%2014px%3B%0Aline%2Dheight%3A%201%2E35%3B%0A%7D%0A%23header%20%7B%0Atext%2Dalign%3A%20center%3B%0A%7D%0A%23TOC%20%7B%0Aclear%3A%20both%3B%0Amargin%3A%200%200%2010px%2010px%3B%0Apadding%3A%204px%3B%0Awidth%3A%20400px%3B%0Aborder%3A%201px%20solid%20%23CCCCCC%3B%0Aborder%2Dradius%3A%205px%3B%0Abackground%2Dcolor%3A%20%23f6f6f6%3B%0Afont%2Dsize%3A%2013px%3B%0Aline%2Dheight%3A%201%2E3%3B%0A%7D%0A%23TOC%20%2Etoctitle%20%7B%0Afont%2Dweight%3A%20bold%3B%0Afont%2Dsize%3A%2015px%3B%0Amargin%2Dleft%3A%205px%3B%0A%7D%0A%23TOC%20ul%20%7B%0Apadding%2Dleft%3A%2040px%3B%0Amargin%2Dleft%3A%20%2D1%2E5em%3B%0Amargin%2Dtop%3A%205px%3B%0Amargin%2Dbottom%3A%205px%3B%0A%7D%0A%23TOC%20ul%20ul%20%7B%0Amargin%2Dleft%3A%20%2D2em%3B%0A%7D%0A%23TOC%20li%20%7B%0Aline%2Dheight%3A%2016px%3B%0A%7D%0Atable%20%7B%0Amargin%3A%201em%20auto%3B%0Aborder%2Dwidth%3A%201px%3B%0Aborder%2Dcolor%3A%20%23DDDDDD%3B%0Aborder%2Dstyle%3A%20outset%3B%0Aborder%2Dcollapse%3A%20collapse%3B%0A%7D%0Atable%20th%20%7B%0Aborder%2Dwidth%3A%202px%3B%0Apadding%3A%205px%3B%0Aborder%2Dstyle%3A%20inset%3B%0A%7D%0Atable%20td%20%7B%0Aborder%2Dwidth%3A%201px%3B%0Aborder%2Dstyle%3A%20inset%3B%0Aline%2Dheight%3A%2018px%3B%0Apadding%3A%205px%205px%3B%0A%7D%0Atable%2C%20table%20th%2C%20table%20td%20%7B%0Aborder%2Dleft%2Dstyle%3A%20none%3B%0Aborder%2Dright%2Dstyle%3A%20none%3B%0A%7D%0Atable%20thead%2C%20table%20tr%2Eeven%20%7B%0Abackground%2Dcolor%3A%20%23f7f7f7%3B%0A%7D%0Ap%20%7B%0Amargin%3A%200%2E5em%200%3B%0A%7D%0Ablockquote%20%7B%0Abackground%2Dcolor%3A%20%23f6f6f6%3B%0Apadding%3A%200%2E25em%200%2E75em%3B%0A%7D%0Ahr%20%7B%0Aborder%2Dstyle%3A%20solid%3B%0Aborder%3A%20none%3B%0Aborder%2Dtop%3A%201px%20solid%20%23777%3B%0Amargin%3A%2028px%200%3B%0A%7D%0Adl%20%7B%0Amargin%2Dleft%3A%200%3B%0A%7D%0Adl%20dd%20%7B%0Amargin%2Dbottom%3A%2013px%3B%0Amargin%2Dleft%3A%2013px%3B%0A%7D%0Adl%20dt%20%7B%0Afont%2Dweight%3A%20bold%3B%0A%7D%0Aul%20%7B%0Amargin%2Dtop%3A%200%3B%0A%7D%0Aul%20li%20%7B%0Alist%2Dstyle%3A%20circle%20outside%3B%0A%7D%0Aul%20ul%20%7B%0Amargin%2Dbottom%3A%200%3B%0A%7D%0Apre%2C%20code%20%7B%0Abackground%2Dcolor%3A%20%23f7f7f7%3B%0Aborder%2Dradius%3A%203px%3B%0Acolor%3A%20%23333%3B%0Awhite%2Dspace%3A%20pre%2Dwrap%3B%20%0A%7D%0Apre%20%7B%0Aborder%2Dradius%3A%203px%3B%0Amargin%3A%205px%200px%2010px%200px%3B%0Apadding%3A%2010px%3B%0A%7D%0Apre%3Anot%28%5Bclass%5D%29%20%7B%0Abackground%2Dcolor%3A%20%23f7f7f7%3B%0A%7D%0Acode%20%7B%0Afont%2Dfamily%3A%20Consolas%2C%20Monaco%2C%20%27Courier%20New%27%2C%20monospace%3B%0Afont%2Dsize%3A%2085%25%3B%0A%7D%0Ap%20%3E%20code%2C%20li%20%3E%20code%20%7B%0Apadding%3A%202px%200px%3B%0A%7D%0Adiv%2Efigure%20%7B%0Atext%2Dalign%3A%20center%3B%0A%7D%0Aimg%20%7B%0Abackground%2Dcolor%3A%20%23FFFFFF%3B%0Apadding%3A%202px%3B%0Aborder%3A%201px%20solid%20%23DDDDDD%3B%0Aborder%2Dradius%3A%203px%3B%0Aborder%3A%201px%20solid%20%23CCCCCC%3B%0Amargin%3A%200%205px%3B%0A%7D%0Ah1%20%7B%0Amargin%2Dtop%3A%200%3B%0Afont%2Dsize%3A%2035px%3B%0Aline%2Dheight%3A%2040px%3B%0A%7D%0Ah2%20%7B%0Aborder%2Dbottom%3A%204px%20solid%20%23f7f7f7%3B%0Apadding%2Dtop%3A%2010px%3B%0Apadding%2Dbottom%3A%202px%3B%0Afont%2Dsize%3A%20145%25%3B%0A%7D%0Ah3%20%7B%0Aborder%2Dbottom%3A%202px%20solid%20%23f7f7f7%3B%0Apadding%2Dtop%3A%2010px%3B%0Afont%2Dsize%3A%20120%25%3B%0A%7D%0Ah4%20%7B%0Aborder%2Dbottom%3A%201px%20solid%20%23f7f7f7%3B%0Amargin%2Dleft%3A%208px%3B%0Afont%2Dsize%3A%20105%25%3B%0A%7D%0Ah5%2C%20h6%20%7B%0Aborder%2Dbottom%3A%201px%20solid%20%23ccc%3B%0Afont%2Dsize%3A%20105%25%3B%0A%7D%0Aa%20%7B%0Acolor%3A%20%230033dd%3B%0Atext%2Ddecoration%3A%20none%3B%0A%7D%0Aa%3Ahover%20%7B%0Acolor%3A%20%236666ff%3B%20%7D%0Aa%3Avisited%20%7B%0Acolor%3A%20%23800080%3B%20%7D%0Aa%3Avisited%3Ahover%20%7B%0Acolor%3A%20%23BB00BB%3B%20%7D%0Aa%5Bhref%5E%3D%22http%3A%22%5D%20%7B%0Atext%2Ddecoration%3A%20underline%3B%20%7D%0Aa%5Bhref%5E%3D%22https%3A%22%5D%20%7B%0Atext%2Ddecoration%3A%20underline%3B%20%7D%0A%0Acode%20%3E%20span%2Ekw%20%7B%20color%3A%20%23555%3B%20font%2Dweight%3A%20bold%3B%20%7D%20%0Acode%20%3E%20span%2Edt%20%7B%20color%3A%20%23902000%3B%20%7D%20%0Acode%20%3E%20span%2Edv%20%7B%20color%3A%20%2340a070%3B%20%7D%20%0Acode%20%3E%20span%2Ebn%20%7B%20color%3A%20%23d14%3B%20%7D%20%0Acode%20%3E%20span%2Efl%20%7B%20color%3A%20%23d14%3B%20%7D%20%0Acode%20%3E%20span%2Ech%20%7B%20color%3A%20%23d14%3B%20%7D%20%0Acode%20%3E%20span%2Est%20%7B%20color%3A%20%23d14%3B%20%7D%20%0Acode%20%3E%20span%2Eco%20%7B%20color%3A%20%23888888%3B%20font%2Dstyle%3A%20italic%3B%20%7D%20%0Acode%20%3E%20span%2Eot%20%7B%20color%3A%20%23007020%3B%20%7D%20%0Acode%20%3E%20span%2Eal%20%7B%20color%3A%20%23ff0000%3B%20font%2Dweight%3A%20bold%3B%20%7D%20%0Acode%20%3E%20span%2Efu%20%7B%20color%3A%20%23900%3B%20font%2Dweight%3A%20bold%3B%20%7D%20%20code%20%3E%20span%2Eer%20%7B%20color%3A%20%23a61717%3B%20background%2Dcolor%3A%20%23e3d2d2%3B%20%7D%20%0A" rel="stylesheet" type="text/css" />
 
 </head>
 
@@ -32,19 +32,19 @@
 
 <h1 class="title toc-ignore">Package shinyjs</h1>
 <h4 class="author"><em>Dean Attali</em></h4>
-<h4 class="date"><em>2016-12-26</em></h4>
+<h4 class="date"><em>2017-06-29</em></h4>
 
 
 
 <div id="shinyjs---easily-improve-the-user-interaction-and-user-experience-in-your-shiny-apps-in-seconds" class="section level1">
 <h1>shinyjs - Easily improve the user interaction and user experience in your Shiny apps in seconds</h1>
-<p><a href="https://www.paypal.me/daattali"><img src="data:image/png;base64,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" alt="Donate" /></a> <a href="https://travis-ci.org/daattali/shinyjs"><img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI5MCIgaGVpZ2h0PSIyMCI+PGxpbmVhckdyYWRpZW50IGlkPSJhIiB4Mj0iMCIgeTI9IjEwMCUiPjxzdG9wIG9mZnNldD0iMCIgc3RvcC1jb2xvcj0iI2JiYiIgc3RvcC1vcGFjaXR5PSIuMSIvPjxzdG9wIG9mZnNldD0iMSIgc3RvcC1vcGFjaXR5PSIuMSIvPjwvbGluZWFyR3JhZGllbnQ+PHJlY3Qgcng9IjMiIHdpZHRoPSI5MCIgaGVpZ2h0PSIyMCIgZmlsbD0iIzU1NSIvPjxyZWN0IHJ4PSIzIiB4PSIzNyIgd2lkdGg9IjUzIiBoZWlnaHQ9IjIwIiBmaWxsPSIjNGMxIi8+PHBhdGggZmlsbD0iIzRjMSIgZD0iTTM3IDBoNHYyMGgtNHoiLz48cmVjdCByeD0iMyIgd2lkdGg9IjkwIiBoZWlnaHQ9IjIwIiBmaWxsPSJ1cmwoI2EpIi8+PGcgZmlsbD0iI2ZmZiIgdGV4dC1hbmNob3I9Im1pZGRsZSIgZm9udC1mYW1pbHk9IkRlamFWdSBTYW5zLFZlcmRhbmEsR2VuZXZhLHNhbnMtc2VyaWYiIGZvbnQtc2l6ZT0iMTEiPjx0ZXh0IHg9IjE5LjUiIHk9IjE1IiBmaWxsPSIjMDEwMTAxIiBmaWxsLW9wYWNpdHk9Ii4zIj5idWlsZDwvdGV4dD48dGV4dCB4PSIxOS41IiB5PSIxNCI+YnVpbGQ8L3RleHQ+PHRleHQgeD0iNjIuNSIgeT0iMTUiIGZpbGw9IiMwMTAxMDEiIGZpbGwtb3BhY2l0eT0iLjMiPnBhc3Npbmc8L3RleHQ+PHRleHQgeD0iNjIuNSIgeT0iMTQiPnBhc3Npbmc8L3RleHQ+PC9nPjwvc3ZnPg==" alt="Build Status" /></a> <a href="https://cran.r-project.org/package=shinyjs"><img src="data:image/svg+xml; charset=utf-8;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI3NiIgaGVpZ2h0PSIyMCI+CiAgPGxpbmVhckdyYWRpZW50IGlkPSJiIiB4Mj0iMCIgeTI9IjEwMCUiPgogICAgPHN0b3Agb2Zmc2V0PSIwIiBzdG9wLWNvbG9yPSIjYmJiIiBzdG9wLW9wYWNpdHk9Ii4xIi8+CiAgICA8c3RvcCBvZmZzZXQ9IjEiIHN0b3Atb3BhY2l0eT0iLjEiLz4KICA8L2xpbmVhckdyYWRpZW50PgogIDxtYXNrIGlkPSJhIj4KICAgIDxyZWN0IHdpZHRoPSI3NiIgaGVpZ2h0PSIyMCIgcng9IjMiIGZpbGw9IiNmZmYiLz4KICA8L21hc2s+CiAgPGcgbWFzaz0idXJsKCNhKSI+CiAgICA8cGF0aCBmaWxsPSIjNTU1IiBkPSJNMCAwaDQzdjIwSDB6Ii8+CiAgICA8cGF0aCBmaWxsPSIjNGMxIiBkPSJNNDMgMGg1Mi41djIwSDQzeiIvPgogICAgPHBhdGggZmlsbD0idXJsKCNiKSIgZD0iTTAgMGg3NnYyMEgweiIvPgogIDwvZz4KICA8ZyBmaWxsPSIjZmZmIiB0ZXh0LWFuY2hvcj0ibWlkZGxlIgogICAgIGZvbnQtZmFtaWx5PSJEZWphVnUgU2FucyxWZXJkYW5hLEdlbmV2YSxzYW5zLXNlcmlmIiBmb250LXNpemU9IjExIj4KICAgIDx0ZXh0IHg9IjIxLjUiIHk9IjE1IiBmaWxsPSIjMDEwMTAxIiBmaWxsLW9wYWNpdHk9Ii4zIj4KICAgICAgQ1JBTgogICAgPC90ZXh0PgogICAgPHRleHQgeD0iMjEuNSIgeT0iMTQiPgogICAgICBDUkFOCiAgICA8L3RleHQ+CiAgICA8dGV4dCB4PSI1OC41IiB5PSIxNSIgZmlsbD0iIzAxMDEwMSIgZmlsbC1vcGFjaXR5PSIuMyI+CiAgICAgIDAuOAogICAgPC90ZXh0PgogICAgPHRleHQgeD0iNTguNSIgeT0iMTQiPgogICAgICAwLjgKICAgIDwvdGV4dD4KICA8L2c+Cjwvc3ZnPg==" alt="CRAN version" /></a></p>
+<p><a href="https://www.paypal.me/daattali"><img src="data:image/png;base64,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" alt="Donate" /></a> <a href="https://travis-ci.org/daattali/shinyjs"><img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI5MCIgaGVpZ2h0PSIyMCI+PGxpbmVhckdyYWRpZW50IGlkPSJhIiB4Mj0iMCIgeTI9IjEwMCUiPjxzdG9wIG9mZnNldD0iMCIgc3RvcC1jb2xvcj0iI2JiYiIgc3RvcC1vcGFjaXR5PSIuMSIvPjxzdG9wIG9mZnNldD0iMSIgc3RvcC1vcGFjaXR5PSIuMSIvPjwvbGluZWFyR3JhZGllbnQ+PHJlY3Qgcng9IjMiIHdpZHRoPSI5MCIgaGVpZ2h0PSIyMCIgZmlsbD0iIzU1NSIvPjxyZWN0IHJ4PSIzIiB4PSIzNyIgd2lkdGg9IjUzIiBoZWlnaHQ9IjIwIiBmaWxsPSIjNGMxIi8+PHBhdGggZmlsbD0iIzRjMSIgZD0iTTM3IDBoNHYyMGgtNHoiLz48cmVjdCByeD0iMyIgd2lkdGg9IjkwIiBoZWlnaHQ9IjIwIiBmaWxsPSJ1cmwoI2EpIi8+PGcgZmlsbD0iI2ZmZiIgdGV4dC1hbmNob3I9Im1pZGRsZSIgZm9udC1mYW1pbHk9IkRlamFWdSBTYW5zLFZlcmRhbmEsR2VuZXZhLHNhbnMtc2VyaWYiIGZvbnQtc2l6ZT0iMTEiPjx0ZXh0IHg9IjE5LjUiIHk9IjE1IiBmaWxsPSIjMDEwMTAxIiBmaWxsLW9wYWNpdHk9Ii4zIj5idWlsZDwvdGV4dD48dGV4dCB4PSIxOS41IiB5PSIxNCI+YnVpbGQ8L3RleHQ+PHRleHQgeD0iNjIuNSIgeT0iMTUiIGZpbGw9IiMwMTAxMDEiIGZpbGwtb3BhY2l0eT0iLjMiPnBhc3Npbmc8L3RleHQ+PHRleHQgeD0iNjIuNSIgeT0iMTQiPnBhc3Npbmc8L3RleHQ+PC9nPjwvc3ZnPg==" alt="Build Status" /></a> <a href="https://cran.r-project.org/package=shinyjs"><img src="data:image/svg+xml; charset=utf-8;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI3NiIgaGVpZ2h0PSIyMCI+CiAgPGxpbmVhckdyYWRpZW50IGlkPSJiIiB4Mj0iMCIgeTI9IjEwMCUiPgogICAgPHN0b3Agb2Zmc2V0PSIwIiBzdG9wLWNvbG9yPSIjYmJiIiBzdG9wLW9wYWNpdHk9Ii4xIi8+CiAgICA8c3RvcCBvZmZzZXQ9IjEiIHN0b3Atb3BhY2l0eT0iLjEiLz4KICA8L2xpbmVhckdyYWRpZW50PgogIDxtYXNrIGlkPSJhIj4KICAgIDxyZWN0IHdpZHRoPSI3NiIgaGVpZ2h0PSIyMCIgcng9IjMiIGZpbGw9IiNmZmYiLz4KICA8L21hc2s+CiAgPGcgbWFzaz0idXJsKCNhKSI+CiAgICA8cGF0aCBmaWxsPSIjNTU1IiBkPSJNMCAwaDQzdjIwSDB6Ii8+CiAgICA8cGF0aCBmaWxsPSIjNGMxIiBkPSJNNDMgMGg1Mi41djIwSDQzeiIvPgogICAgPHBhdGggZmlsbD0idXJsKCNiKSIgZD0iTTAgMGg3NnYyMEgweiIvPgogIDwvZz4KICA8ZyBmaWxsPSIjZmZmIiB0ZXh0LWFuY2hvcj0ibWlkZGxlIgogICAgIGZvbnQtZmFtaWx5PSJEZWphVnUgU2FucyxWZXJkYW5hLEdlbmV2YSxzYW5zLXNlcmlmIiBmb250LXNpemU9IjExIj4KICAgIDx0ZXh0IHg9IjIxLjUiIHk9IjE1IiBmaWxsPSIjMDEwMTAxIiBmaWxsLW9wYWNpdHk9Ii4zIj4KICAgICAgQ1JBTgogICAgPC90ZXh0PgogICAgPHRleHQgeD0iMjEuNSIgeT0iMTQiPgogICAgICBDUkFOCiAgICA8L3RleHQ+CiAgICA8dGV4dCB4PSI1OC41IiB5PSIxNSIgZmlsbD0iIzAxMDEwMSIgZmlsbC1vcGFjaXR5PSIuMyI+CiAgICAgIDAuOQogICAgPC90ZXh0PgogICAgPHRleHQgeD0iNTguNSIgeT0iMTQiPgogICAgICAwLjkKICAgIDwvdGV4dD4KICA8L2c+Cjwvc3ZnPg==" alt="CRAN version" /></a></p>
 <blockquote>
 <p><em>Copyright 2016 <a href="http://deanattali.com">Dean Attali</a></em></p>
 </blockquote>
 <p><code>shinyjs</code> lets you perform common useful JavaScript operations in Shiny apps that will greatly improve your apps without having to know any JavaScript.</p>
 <p>Examples include: hiding an element, disabling an input, resetting an input back to its original value, delaying code execution by a few seconds, and many more useful functions for both the end user and the developer. <code>shinyjs</code> can also be used to easily call your own custom JavaScript functions from R.</p>
-<p><strong>shinyjs was developed for non-commerical purposes. For commerical usage, please <a href="http://deanattali.com/aboutme#contact">contact me</a>. If you find shinyjs useful, please consider supporting its development!</strong></p>
+<p><strong>shinyjs is under the AGPL-3 license. For commerical use under a different license, please <a href="http://deanattali.com/aboutme#contact">contact me</a>. If you find shinyjs useful, please consider supporting its development!</strong></p>
 <p align="center">
 <a href="https://www.paypal.me/daattali"> <img src="data:image/gif;base64,R0lGODlhXAAaAPcPAP/x2//9+P7mtP+vM/+sLf7kr/7gpf7hqv7fof7ShP+xOP+zPUBRVv61Qr65oM8LAhA+a3+Ddb6qfEBedYBvR/63SGB0fL+OOxA+ahA6Yu7br56fkDBUc6+FOyBKcc6/lq6qlf/CZSBJbe+nNs7AnSBDYDBKW56hlDBRbFBZVH+KiL61lf66TXCBhv/HaiBJb/61Q56knmB0fv++Wo6VjP+pJp6fjf/cqI6Uid+fOWBvcXBoTSBJbiBCXn+JhEBbbt7Qqu7euv/nw/+2R0BRWI6Md8+YPY6Th/+0Qc+UNCBHar+QQI92Q++jLEBgeyBCX//Uk2B1gH+Mi/+9Wu7Vof+tL//Eat+bMP+yO//js/7Oe/7NenCCi/+2Q/7OgP+6T//is1Brfv7RhP/y3b60kv7cmv+5S/7ZlO7Und7LoWB2gRA7Yv+/V56WeXBnS87Fqv/Nf/7Zl66qkX+NkP7HbP6zPb61mWBgT//gro95SXB/gv/Jb//cp//v1H+Ok//Pg86/md7Opv/owv/26EBedmBhUXB/gP7BX+7Zqv7Mef7CYf7CYkBfd//z3/68Uv/Gb0BSWRA7Y1Blb/+qKf66Tv/qx+7Wps+VOP7gqHB5c4BwSVBpeq6smK6unN7Knf7Pfa+IQ/+4Sv/hss7EpUBgev+uMZ+ARp99P//qw1Bqe6+GP/7DZFBrgJ9+QnB/hP7dn7+MOP7NfY6Wj/7nuv7pwP/57v/lvf/Znv/25f/NgP/y2//v0v/BYf/syP+1Qv+qKAAzZswAAP+ZMwAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACH5BAEAAA8ALAAAAABcABoAAAj/AB8IHDhQmMGDCBMqXMiwocOHDAlKnPhAWAg+YwJo3Mixo8ePIEOKHMlxkKhHwihKFGalT62XMGPKnEmzps2bOG82gpNSpTA8uIIKHUq0qNGjSJMqXRpUUM+VYHRJnUq1qtWrWLNq3cqVaqWnAoX92UW2rNmzaNOqXcu2rVu0WcCWQtWrrt27ePPq3cu3r9+/er8UXESrsOHDiA/HAMYYmAc/QRJLnkyZVpAYlTMj9tKTwKpZoEOLHi2ai2MnTiAAY0W6tevXbzzMeU27dSwCFbE4wiSgt+/fwH2TAuagNxDVo347cKAhuAANDoAAX97cdxhgnXxDL+68++9DdQzC/2BBp4D58+jTn2eM6HwLYLLMn1DNuMV6YFLoc5JPH9gJ8/2pUUB+jL0QiHoIoicGCzAYVMGDiRwg4YQUVngACcC8QKEKwKhwwAbAYLABCBwAs8GFjHEAQhTAMHKAJSGCQEOIB6ThCmMqkDAjB3awmIqFQE4YByUPGtTAkQ0o8ooBTDbppJM4ACODk3oAg4MBPACzApNyALOJATYAwwMVYEr5JCCMMbkCMIQwiQEwnhhARZpP1tnkFkg2YNACfPLZxR5nICDooIQKagEwRxAqAjAffACMCIOSAcwECBzqg6GIIoCGBYsyRikCPgBjCAKOTjrBBIwVqioCZWgRSp98Gv+kwKy0zmqGC58koOuuu6IAjAS7FgGMEglIAMwPwQKjQwK+Asvsrwn8AIwkEkQATCa66gBMG8UOG8G33/IqbgIusFFrrQZVMcC67LbrbruMrTtCHowtMUAOwJQwwgAjRAKMvfGuG3DAkABjyrolAGPEvfmuawQo70YccRUG/ULAxRhnrDHGFzTmcSsYEwGMCZo8AUwhBHRswsUqX2xyCikwdsHFjO2gCgExE7HDGsBcsvHPG0+SkjC/FG300Ugb3QEDTDNNwRVHN+FGBsD0QEHRSzOBNQNa/wJLDxlQQAEDSRRNAdWn/NLEHVSTnfTbb/ckTA1w12333XjnrXfdNTyPJYwvgAcu+OCEF2744YgnrrjhYAmDBC+QRy755JRXbvnlmGeuOeVIgFXRDLmELvropJdu+umop6766qPP4HlYIdwi++y012777bjnrvvuvMsewusFDXGDLcQXb/zxyCev/PLMN8/8DUMAv9IUUAgBwPXYZ6/99tx37/334GcvBBRTSO8TROinr/76B6n0QEAAOw==" /> </a>
 </p>
@@ -75,92 +75,100 @@ Overview of main functions
 </h2>
 <p><strong>Note: In order to use any <code>shinyjs</code> function in a Shiny app, you must first call <code>useShinyjs()</code> anywhere in the app’s UI.</strong></p>
 <table>
+<colgroup>
+<col width="29%"></col>
+<col width="70%"></col>
+</colgroup>
 <thead>
 <tr class="header">
-<th align="left">Function</th>
-<th align="left">Description</th>
+<th>Function</th>
+<th>Description</th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
-<td align="left"><code>show</code>/<code>hide</code>/<code>toggle</code></td>
-<td align="left">Display or hide an element (optionally with an animation).</td>
+<td><code>show</code>/<code>hide</code>/<code>toggle</code></td>
+<td>Display or hide an element (optionally with an animation).</td>
 </tr>
 <tr class="even">
-<td align="left"><code>hidden</code></td>
-<td align="left">Initialize a Shiny tag as invisible (can be shown later with a call to <code>show</code>).</td>
+<td><code>hidden</code></td>
+<td>Initialize a Shiny tag as invisible (can be shown later with a call to <code>show</code>).</td>
 </tr>
 <tr class="odd">
-<td align="left"><code>enable</code>/<code>disable</code>/<code>toggleState</code></td>
-<td align="left">Enable or disable an input element, such as a button or a text input.</td>
+<td><code>enable</code>/<code>disable</code>/<code>toggleState</code></td>
+<td>Enable or disable an input element, such as a button or a text input.</td>
 </tr>
 <tr class="even">
-<td align="left"><code>disabled</code></td>
-<td align="left">Initialize a Shiny input as disabled.</td>
+<td><code>disabled</code></td>
+<td>Initialize a Shiny input as disabled.</td>
 </tr>
 <tr class="odd">
-<td align="left"><code>reset</code></td>
-<td align="left">Reset a Shiny input widget back to its original value.</td>
+<td><code>reset</code></td>
+<td>Reset a Shiny input widget back to its original value.</td>
 </tr>
 <tr class="even">
-<td align="left"><code>delay</code></td>
-<td align="left">Execute R code (including any <code>shinyjs</code> functions) after a specified amount of time.</td>
+<td><code>delay</code></td>
+<td>Execute R code (including any <code>shinyjs</code> functions) after a specified amount of time.</td>
 </tr>
 <tr class="odd">
-<td align="left"><code>alert</code></td>
-<td align="left">Show a message to the</td>
+<td><code>alert</code></td>
+<td>Show a message to the</td>
 </tr>
 <tr class="even">
-<td align="left"><code>html</code></td>
-<td align="left">Change the text/HTML of an element.</td>
+<td><code>html</code></td>
+<td>Change the text/HTML of an element.</td>
 </tr>
 <tr class="odd">
-<td align="left"><code>onclick</code></td>
-<td align="left">Run R code when a specific element is clicked. Was originally developed with the sole purpose of running a <code>shinyjs</code> function when an element is clicked, though any R code can be used.</td>
+<td><code>onclick</code></td>
+<td>Run R code when a specific element is clicked. Was originally developed with the sole purpose of running a <code>shinyjs</code> function when an element is clicked, though any R code can be used.</td>
 </tr>
 <tr class="even">
-<td align="left"><code>onevent</code></td>
-<td align="left">Similar to <code>onclick</code>, but can be used with many other events instead of click (for example, listen for a key press, mouse hover, etc).</td>
+<td><code>onevent</code></td>
+<td>Similar to <code>onclick</code>, but can be used with many other events instead of click (for example, listen for a key press, mouse hover, etc).</td>
 </tr>
 <tr class="odd">
-<td align="left"><code>addClass</code>/<code>removeClass</code>/<code>toggleClass</code></td>
-<td align="left">add or remove a CSS class from an element.</td>
+<td><code>addClass</code>/<code>removeClass</code>/<code>toggleClass</code></td>
+<td>add or remove a CSS class from an element.</td>
 </tr>
 <tr class="even">
-<td align="left"><code>runjs</code></td>
-<td align="left">Run arbitrary JavaScript code.</td>
+<td><code>runjs</code></td>
+<td>Run arbitrary JavaScript code.</td>
 </tr>
 <tr class="odd">
-<td align="left"><code>extendShinyjs</code></td>
-<td align="left">Allows you to write your own JavaScript functions and use <code>shinyjs</code> to call them as if they were regular R code. More information is available in the section “Calling your own JavaScript functions from R” below.</td>
+<td><code>extendShinyjs</code></td>
+<td>Allows you to write your own JavaScript functions and use <code>shinyjs</code> to call them as if they were regular R code. More information is available in the section “Calling your own JavaScript functions from R” below.</td>
 </tr>
 </tbody>
 </table>
 <div id="functions-that-help-you-during-shiny-app-development" class="section level3">
 <h3>Functions that help you during Shiny app development</h3>
 <table>
+<colgroup>
+<col width="29%"></col>
+<col width="70%"></col>
+</colgroup>
 <thead>
 <tr class="header">
-<th align="left">Function</th>
-<th align="left">Description</th>
+<th>Function</th>
+<th>Description</th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
-<td align="left"><code>runcodeUI</code>+<code>runcodeServer</code></td>
-<td align="left">Adds a text input to your app that lets you run arbitrary R code live.</td>
+<td><code>runcodeUI</code>+<code>runcodeServer</code></td>
+<td>Adds a text input to your app that lets you run arbitrary R code live.</td>
 </tr>
 <tr class="even">
-<td align="left"><code>showLog</code></td>
-<td align="left">Print any JavaScript <code>console.log()</code> messages in the R console, to make it easier and quicker to debug apps without having to open the JS console.</td>
+<td><code>showLog</code></td>
+<td>Print any JavaScript <code>console.log()</code> messages in the R console, to make it easier and quicker to debug apps without having to open the JS console.</td>
 </tr>
 <tr class="odd">
-<td align="left"><code>logjs</code></td>
-<td align="left">Print a message to the JavaScript console (mainly used for debugging purposes).</td>
+<td><code>logjs</code></td>
+<td>Print a message to the JavaScript console (mainly used for debugging purposes).</td>
 </tr>
 <tr class="even">
-<td align="left"><code>inlineCSS</code></td>
-<td align="left">Easily add inline CSS to a Shiny app.</td>
+<td><code>inlineCSS</code></td>
+<td>Easily add inline CSS to a Shiny app.</td>
 </tr>
 </tbody>
 </table>
@@ -265,7 +273,7 @@ More resources
   (function () {
     var script = document.createElement("script");
     script.type = "text/javascript";
-    script.src  = "https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
     document.getElementsByTagName("head")[0].appendChild(script);
   })();
 </script>

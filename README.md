@@ -19,8 +19,8 @@ seconds, and many more useful functions for both the end user and the
 developer. `shinyjs` can also be used to easily call your own custom
 JavaScript functions from R.
 
-**shinyjs was developed for non-commerical purposes. For commerical
-usage, please [contact me](http://deanattali.com/aboutme#contact). If
+**shinyjs is under the AGPL-3 license. For commerical use under a different
+license, please [contact me](http://deanattali.com/aboutme#contact). If
 you find shinyjs useful, please consider supporting its development!**
 
 <p align="center">
@@ -28,6 +28,7 @@ you find shinyjs useful, please consider supporting its development!**
 <img src="https://www.paypalobjects.com/en_US/i/btn/btn_donate_LG.gif" />
 </a>
 </p>
+
 Table of contents
 =================
 
@@ -44,6 +45,7 @@ Table of contents
 <h2 id="demos">
 Demos and tutorials
 </h2>
+
 -   [Demo Shiny app](http://deanattali.com/shinyjs/demo) that lets you
     play around with some of the functionality in `shinyjs`.
 -   [Video of my shinyjs
@@ -59,8 +61,8 @@ Demos and tutorials
 <h2 id="overview-main">
 Overview of main functions
 </h2>
-**Note: In order to use any `shinyjs` function in a Shiny app, you must
-first call `useShinyjs()` anywhere in the app's UI.**
+
+**Note: In order to use any `shinyjs` function in a Shiny app, you must first call `useShinyjs()` anywhere in the app's UI.**
 
 <table>
 <thead>

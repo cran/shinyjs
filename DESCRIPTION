@@ -1,6 +1,6 @@
 Package: shinyjs
 Title: Easily Improve the User Experience of Your Shiny Apps in Seconds
-Version: 0.9
+Version: 0.9.1
 Authors@R: person("Dean", "Attali", email = "daattali@gmail.com",
     role = c("aut", "cre"))
 Description: Perform common useful JavaScript operations in Shiny apps that will
@@ -16,14 +16,14 @@ Imports: digest (>= 0.6.8), htmltools (>= 0.2.6), jsonlite, miniUI (>=
         0.1.1), shiny (>= 0.11.1), stats
 Suggests: knitr (>= 1.7), rmarkdown, rstudioapi (>= 0.5), shinyAce,
         testthat (>= 0.9.1), V8 (>= 0.6)
-License: MIT + file LICENSE
+License: AGPL-3
 SystemRequirements: pandoc with https support
 LazyData: true
 VignetteBuilder: knitr
 RoxygenNote: 5.0.1
 NeedsCompilation: no
-Packaged: 2016-12-26 06:51:27 UTC; Dean
+Packaged: 2017-06-29 15:03:56 UTC; Dean
 Author: Dean Attali [aut, cre]
 Maintainer: Dean Attali <daattali@gmail.com>
 Repository: CRAN
-Date/Publication: 2016-12-26 10:34:31
+Date/Publication: 2017-06-29 22:26:58 UTC
