@@ -7,11 +7,12 @@
 \alias{toggleState}
 \title{Enable/disable an input element}
 \usage{
-enable(id = NULL, selector = NULL)
+enable(id = NULL, selector = NULL, asis = FALSE)
 
-disable(id = NULL, selector = NULL)
+disable(id = NULL, selector = NULL, asis = FALSE)
 
-toggleState(id = NULL, condition = NULL, selector = NULL)
+toggleState(id = NULL, condition = NULL, selector = NULL,
+  asis = FALSE)
 }
 \arguments{
 \item{id}{The id of the input element/Shiny tag}
@@ -20,7 +21,11 @@ toggleState(id = NULL, condition = NULL, selector = NULL)
 argument is given. For example, to disable all text inputs, use
 \code{selector = "input[type='text']"}}
 
-\item{condition}{An optional argument to \code{toggleState}, see 'Details' below.}
+\item{asis}{If \code{TRUE}, use the ID as-is even when inside a module
+(instead of adding the namespace prefix to the ID).}
+
+\item{condition}{An optional argument to \code{toggleState}. The element will
+be enabled when the \code{condition} is \code{TRUE}, and disabled otherwise.}
 }
 \description{
 Enable or disable an input element. A disabled element is not usable and
